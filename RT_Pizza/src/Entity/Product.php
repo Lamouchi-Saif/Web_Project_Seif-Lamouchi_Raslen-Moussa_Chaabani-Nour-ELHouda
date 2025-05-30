@@ -126,7 +126,7 @@ class Product
     {
         if (!$this->productIngredients->contains($productIngredient)) {
             $this->productIngredients->add($productIngredient);
-            $productIngredient->setManyToOne($this);
+            $productIngredient->setProduct($this);
         }
 
         return $this;
@@ -136,8 +136,8 @@ class Product
     {
         if ($this->productIngredients->removeElement($productIngredient)) {
             // set the owning side to null (unless already changed)
-            if ($productIngredient->getManyToOne() === $this) {
-                $productIngredient->setManyToOne(null);
+            if ($productIngredient->getProduct() === $this) {
+                $productIngredient->setProduct(null);
             }
         }
 
