@@ -1,0 +1,87 @@
+header {
+    background: linear-gradient(90deg, #ff5722, #d84315);
+    color: white;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(216, 67, 21, 0.6);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+header:hover {
+    background: linear-gradient(90deg, #d84315, #ff7043);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    cursor: pointer;
+    letter-spacing: 2px;
+    user-select: none;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    position: relative;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Underline effect on hover */
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffccbc;
+    transition: width 0.3s ease;
+    border-radius: 0 0 4px 4px;
+}
+
+nav a:hover {
+    color: #ffccbc;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 2rem;
+    }
+    nav {
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 0.75rem;
+    }
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}

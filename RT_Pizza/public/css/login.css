@@ -1,0 +1,149 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      background: #fff9f4;
+      width: 380px;
+      border-radius: 15px;
+      box-shadow: 0 10px 35px rgba(235, 119, 5, 0.3);
+      overflow: hidden;
+      position: relative;
+      padding: 30px 40px 40px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2.2rem;
+      color: #e94e1b;
+      text-shadow: 1px 1px 2px #c13700;
+    }
+
+    .header p {
+      margin: 5px 0 0 0;
+      font-weight: 300;
+      color: #af6b48cc;
+      font-size: 0.9rem;
+    }
+
+    .form-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      gap: 20px;
+    }
+
+    .form-toggle button {
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #db541a;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      outline-offset: 4px;
+    }
+
+    .form-toggle button.active,
+    .form-toggle button:hover {
+      color: #e94e1b;
+      border-color: #e94e1b;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #7a4a28;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 12px 15px;
+      border: 2px solid #f3be94;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #5b3c1a;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #e94e1b;
+      outline: none;
+      box-shadow: 0 0 8px #e94e1b66;
+    }
+
+    button.submit-btn {
+      margin-top: 10px;
+      background: #e94e1b;
+      border: none;
+      color: white;
+      padding: 14px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 12px #c1370080;
+      transition: background-color 0.3s ease;
+    }
+
+    button.submit-btn:hover {
+      background: #c13700;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 0.85rem;
+      color: #af6b48cc;
+    }
+
+    .pizza-icon {
+      font-size: 3.5rem;
+      display: block;
+      margin: 0 auto 10px auto;
+      color: #e94e1b;
+      text-shadow: 1px 1px 1px #c13700;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 420px) {
+      .container {
+        width: 90vw;
+        padding: 25px 25px 35px;
+      }
+    }

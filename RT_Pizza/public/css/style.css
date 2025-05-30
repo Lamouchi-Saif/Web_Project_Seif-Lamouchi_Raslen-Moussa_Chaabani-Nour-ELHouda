@@ -1,0 +1,60 @@
+/* Simple modern CSS for nav, layout, and footer */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff8f0;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background: #d84315;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff7043;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+main {
+    flex-grow: 1;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+footer {
+    background: #d84315;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Contact section anchor styling */
+#contact {
+    margin-top: 100vh;
+    padding-top: 2rem;
+    border-top: 2px solid #d84315;
+}
