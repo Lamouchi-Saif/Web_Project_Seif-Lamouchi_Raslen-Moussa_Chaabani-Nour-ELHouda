@@ -4,6 +4,18 @@
       box-sizing: border-box;
     }
 
+    /* Ensure labels and inputs are vertically spaced */
+    .container form label {
+      display: block;
+      margin-bottom: 6px;
+      /* adds space between label and input */
+    }
+
+    .container form input {
+      margin-bottom: 16px;
+      /* adds space between input fields */
+    }
+
     .container {
       background: #fff9f4;
       width: 380px;
@@ -60,6 +72,10 @@
       border-color: #e94e1b;
     }
 
+    #register-form {
+      align-items: center;
+    }
+
     form {
       display: none;
       flex-direction: column;
@@ -95,6 +111,13 @@
       outline: none;
       box-shadow: 0 0 8px #e94e1b66;
     }
+
+    form input,
+    form button.submit-btn {
+      width: 100%;
+      max-width: 320px;
+    }
+
 
     button.submit-btn {
       margin-top: 10px;
@@ -134,6 +157,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0);

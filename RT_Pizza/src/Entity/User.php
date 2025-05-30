@@ -6,9 +6,11 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +20,7 @@ class User
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 20, nullable: true)]
@@ -31,7 +33,7 @@ class User
     private ?string $passwordHash = null;
 
     #[ORM\Column]
-    private ?bool $isAdmin = null;
+    private ?bool $isAdmin = false;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -48,6 +50,9 @@ class User
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+        $this->isAdmin = false;
     }
 
     public function getId(): ?int
@@ -55,6 +60,7 @@ class User
         return $this->id;
     }
 
+    
     public function getUsername(): ?string
     {
         return $this->username;
@@ -103,9 +109,10 @@ class User
         return $this;
     }
 
-    public function getPasswordHash(): ?string
+    // This is used by Symfony security to get the hashed password
+    public function getPassword(): string
     {
-        return $this->passwordHash;
+        return $this->passwordHash ?? '';
     }
 
     public function setPasswordHash(string $passwordHash): static
@@ -172,12 +179,53 @@ class User
     public function removeCommande(Commande $commande): static
     {
         if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
             if ($commande->getUser() === $this) {
                 $commande->setUser(null);
             }
         }
 
         return $this;
+    }
+
+    // UserInterface methods:
+
+    /**
+     * Returns the roles granted to the user.
+     */
+    public function getRoles(): array
+    {
+        $roles = ['ROLE_USER'];
+
+        if ($this->isAdmin) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+
+        return array_unique($roles);
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     * Not needed when using modern algorithms like bcrypt or sodium.
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * Returns the identifier used to authenticate the user.
+     * Here, it will be the email.
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
     }
 }

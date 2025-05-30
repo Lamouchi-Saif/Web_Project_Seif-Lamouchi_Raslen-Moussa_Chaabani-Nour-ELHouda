@@ -1,146 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RT Pizza - Login / Register{% endblock %}
+{% block title %}Login & Register - RT Pizza{% endblock %}
 
 {% block body %}
-  <div class="container" role="main" aria-label="Authentication form for RT Pizza website">
+  <div class="container">
     <div class="header">
       <span class="pizza-icon" aria-hidden="true">🍕</span>
       <h1>RT Pizza</h1>
       <p>Login or Register to order your favorite pizza!</p>
     </div>
-    <nav class="form-toggle" role="tablist" aria-label="Switch between login and register forms">
-      <button id="login-tab" aria-selected="true" aria-controls="login-form" role="tab" class="active" tabindex="0">Login</button>
-      <button id="register-tab" aria-selected="false" aria-controls="register-form" role="tab" tabindex="-1">Register</button>
+
+    <nav class="form-toggle">
+      <button id="login-tab" class="active">Login</button>
+      <button id="register-tab">Register</button>
     </nav>
 
-    <form id="login-form" aria-labelledby="login-tab" role="tabpanel" class="active" method="POST" action="" novalidate>
+    {# Login Form (handled by Symfony Security) #}
+    <form id="login-form" class="active" method="POST" action="">
       <input type="hidden" name="_csrf_token" value="">
-      
-      <label for="login-email">Email</label>
+
+      <label for="email">Email</label>
       <input
         type="email"
-        id="login-email"
+        id="email"
         name="email"
-        placeholder="your@email.com"
         required
-        autocomplete="email"
-        value="{{ last_username|default('') }}"
-      />
+        placeholder="Enter your email"
+        value="{{ last_email|default('') }}"
+      >
 
-      <label for="login-password">Password</label>
+      <label for="password">Password</label>
       <input
         type="password"
-        id="login-password"
+        id="password"
         name="password"
-        placeholder="Enter your password"
         required
-        autocomplete="current-password"
-      />
+        placeholder="Enter your password"
+      >
 
       <button type="submit" class="submit-btn">Login</button>
+
+      {% if error %}
+        <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+      {% endif %}
     </form>
 
-    <form id="register-form" aria-labelledby="register-tab" role="tabpanel" method="POST" action="" novalidate>
-      <input type="hidden" name="_csrf_token" value="">
-
-      <label for="register-username">Username</label>
-      <input
-        type="text"
-        id="register-username"
-        name="username"
-        placeholder="Choose a username"
-        required
-        autocomplete="username"
-        minlength="3"
-      />
-
-      <label for="register-email">Email</label>
-      <input
-        type="email"
-        id="register-email"
-        name="email"
-        placeholder="your@email.com"
-        required
-        autocomplete="email"
-      />
-
-      <label for="register-password">Password</label>
-      <input
-        type="password"
-        id="register-password"
-        name="password"
-        placeholder="Create password"
-        required
-        autocomplete="new-password"
-        minlength="6"
-      />
-
-      <label for="register-confirm-password">Confirm Password</label>
-      <input
-        type="password"
-        id="register-confirm-password"
-        name="confirm_password"
-        placeholder="Confirm your password"
-        required
-        autocomplete="new-password"
-        minlength="6"
-      />
-
-      <button type="submit" class="submit-btn">Register</button>
+    {# Register Form #}
+    <form id="register-form" method="POST">
+      {{ form_start(registrationForm, {'attr': {'class': 'my-registration-form'} }) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword.first) }}
+        {{ form_row(registrationForm.plainPassword.second) }}
+        <button type="submit" class="submit-btn">Register</button>
+      {{ form_end(registrationForm) }}
     </form>
 
     <p class="footer-text">Made with ❤️ for pizza lovers</p>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const loginTab = document.getElementById('login-tab');
-      const registerTab = document.getElementById('register-tab');
-      const loginForm = document.getElementById('login-form');
-      const registerForm = document.getElementById('register-form');
+    const loginTab = document.getElementById("login-tab");
+    const registerTab = document.getElementById("register-tab");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
 
-      function switchTab(event) {
-        if (event.target === loginTab) {
-          loginTab.classList.add('active');
-          registerTab.classList.remove('active');
-          loginTab.setAttribute('aria-selected', 'true');
-          registerTab.setAttribute('aria-selected', 'false');
-          loginTab.tabIndex = 0;
-          registerTab.tabIndex = -1;
-          loginForm.classList.add('active');
-          registerForm.classList.remove('active');
-        } else if (event.target === registerTab) {
-          registerTab.classList.add('active');
-          loginTab.classList.remove('active');
-          registerTab.setAttribute('aria-selected', 'true');
-          loginTab.setAttribute('aria-selected', 'false');
-          registerTab.tabIndex = 0;
-          loginTab.tabIndex = -1;
-          registerForm.classList.add('active');
-          loginForm.classList.remove('active');
-        }
-      }
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      registerTab.classList.remove("active");
+      loginForm.classList.add("active");
+      registerForm.classList.remove("active");
+    });
 
-      loginTab.addEventListener('click', switchTab);
-      registerTab.addEventListener('click', switchTab);
-
-      registerForm.addEventListener('submit', (e) => {
-        // Basic client-side validation for registration password match
-        const password = document.getElementById('register-password');
-        const confirmPassword = document.getElementById('register-confirm-password');
-        if (password.value !== confirmPassword.value) {
-          e.preventDefault();
-          alert('Passwords do not match. Please re-enter.');
-          confirmPassword.focus();
-          return false;
-        }
-        // Let the form submit normally if everything is fine
-      });
-
-      loginForm.addEventListener('submit', (e) => {
-        // No extra client validation here, let Symfony handle login
-      });
+    registerTab.addEventListener("click", () => {
+      registerTab.classList.add("active");
+      loginTab.classList.remove("active");
+      registerForm.classList.add("active");
+      loginForm.classList.remove("active");
     });
   </script>
 {% endblock %}

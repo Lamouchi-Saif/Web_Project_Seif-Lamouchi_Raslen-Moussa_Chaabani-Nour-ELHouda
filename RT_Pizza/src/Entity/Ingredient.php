@@ -24,17 +24,14 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: ProductIngredient::class)]
     private Collection $productIngredients;
 
-    /**
-     * @var Collection<int, IngredientStock>
-     */
-    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientStock::class)]
-    private Collection $ingredientStocks;
+    #[ORM\OneToOne(mappedBy: 'ingredient', targetEntity: IngredientStock::class, cascade: ['persist', 'remove'])]
+    private ?IngredientStock $ingredientStock = null;
 
     public function __construct()
     {
         $this->productIngredients = new ArrayCollection();
-        $this->ingredientStocks = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -83,32 +80,19 @@ class Ingredient
         return $this;
     }
 
-    /**
-     * @return Collection<int, IngredientStock>
-     */
-    public function getIngredientStocks(): Collection
+    public function getIngredientStock(): ?IngredientStock
     {
-        return $this->ingredientStocks;
+        return $this->ingredientStock;
     }
 
-    public function addIngredientStock(IngredientStock $ingredientStock): static
+    public function setIngredientStock(?IngredientStock $ingredientStock): static
     {
-        if (!$this->ingredientStocks->contains($ingredientStock)) {
-            $this->ingredientStocks->add($ingredientStock);
+        // set the owning side of the relation if necessary
+        if ($ingredientStock !== null && $ingredientStock->getIngredient() !== $this) {
             $ingredientStock->setIngredient($this);
         }
 
-        return $this;
-    }
-
-    public function removeIngredientStock(IngredientStock $ingredientStock): static
-    {
-        if ($this->ingredientStocks->removeElement($ingredientStock)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredientStock->getIngredient() === $this) {
-                $ingredientStock->setIngredient(null);
-            }
-        }
+        $this->ingredientStock = $ingredientStock;
 
         return $this;
     }
