@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: IngredientRepository::class)]
+class Ingredient
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 45)]
+    private ?string $name = null;
+
+    /**
+     * @var Collection<int, ProductIngredient>
+     */
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: ProductIngredient::class)]
+    private Collection $productIngredients;
+
+    /**
+     * @var Collection<int, IngredientStock>
+     */
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: IngredientStock::class)]
+    private Collection $ingredientStocks;
+
+    public function __construct()
+    {
+        $this->productIngredients = new ArrayCollection();
+        $this->ingredientStocks = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductIngredient>
+     */
+    public function getProductIngredients(): Collection
+    {
+        return $this->productIngredients;
+    }
+
+    public function addProductIngredient(ProductIngredient $productIngredient): static
+    {
+        if (!$this->productIngredients->contains($productIngredient)) {
+            $this->productIngredients->add($productIngredient);
+            $productIngredient->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductIngredient(ProductIngredient $productIngredient): static
+    {
+        if ($this->productIngredients->removeElement($productIngredient)) {
+            // set the owning side to null (unless already changed)
+            if ($productIngredient->getIngredient() === $this) {
+                $productIngredient->setIngredient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IngredientStock>
+     */
+    public function getIngredientStocks(): Collection
+    {
+        return $this->ingredientStocks;
+    }
+
+    public function addIngredientStock(IngredientStock $ingredientStock): static
+    {
+        if (!$this->ingredientStocks->contains($ingredientStock)) {
+            $this->ingredientStocks->add($ingredientStock);
+            $ingredientStock->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredientStock(IngredientStock $ingredientStock): static
+    {
+        if ($this->ingredientStocks->removeElement($ingredientStock)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredientStock->getIngredient() === $this) {
+                $ingredientStock->setIngredient(null);
+            }
+        }
+
+        return $this;
+    }
+}
