@@ -74,6 +74,7 @@
         - pages are ready for manipulations (templates/* and src/controller/*)
         - navbar done
         - footer partially done (still need a form for contact)
+        -login (partially done we need the action = ???),register functional
 
 - Front admin: 
 
