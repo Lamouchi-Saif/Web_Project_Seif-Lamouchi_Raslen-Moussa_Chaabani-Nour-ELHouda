@@ -2,72 +2,83 @@
 
 # Project about Pizza sales
 
-#Name of our Pizzaria : RT Pizza
+## Name of our Pizzaria: RT Pizza
 
-#Presentation PP : Nour .
+### Presentation
+- **PP:** Nour  
+- **Presentation Video:** Raslen
 
-#Presentaion Video: Raslen .
+---
 
-## Taches:
+## Tasks
 
-# Front : Nour & Raslen & Seif.
+- **Front:** Nour, Raslen & Seif  
+- **Back:** Raslen & Seif  
+- **Security:** Authentication, XSS, SQL injection ... ==> Seif
 
-# Back : Raslen & Seif.
+---
 
-# Security: Authentication , XSS, SQL injection ... ==> Seif.
+## About
 
+### Base:
 
-## About:
+### Front USER:
 
-* Base :
-  
-* * Front USER:
-    
-  -beautifull interface .
+- Beautiful interface
+- Nav bar:  
+  - Menu (→ page Menu)  
+  - Make your own pizza (→ page)  
+  - Cart (shows what you added)  
+  - Contact (in all pages → twig integrated in all)  
+  - Connexion (authentication) (integrated in login and order page) → Seif
 
-  -nav bar : Menu(-->page Menu),Make your own pizza(-->page), Cart( ywarrik chnowa 7attit), Contact (fil les pages lkol --> twig wa7dou integré fil kol) , Connexion (authentification)(integré fi page connexion w page commander); --> seif 
+- Pages:  
+  - Presentation (index): offers / discounts on some products → Nour  
+  - Connexion: form (register) {username, password, email, address, phone number} else_if (login) {email, password} → Seif  
+  - Menu page: shows products → Nour (HTML/CSS)  
+    - Products: margeritta, neptune... (name, ingredients, price, description, available boolean) (on menu)  
+    - (POO-JS-PHP) → Raslen (don't forget it will also be on admin page, modify only if admin)  
+  - Commander page (from cart): shows elements in cart - form only visible if user logged in → Raslen  
+  - Make your own pizza page → ??? (LAST THING !!!!!)  
 
+- **NOUR** our painter (CSS) !!
 
-  
-  -Page Presentation (index) (feha 3ouroudh/reduction 3la products mou3aynin) --> Nour
+- **PS:** (Make sure not to create link from user to admin page!!)  
+  - **Security:** no direct link between user and admin pages
 
-  -Page connexion --> formulaire (register){username,Pass,email,addresse,num-tel}else_if(login){mail,pass} --> Seif
+---
 
-  -Page Menu fih Lproducts; --> Nour (html/css)
-    -Products : margeritta,neptune... (name,ingredients,price,description,Dispo(boolean));(fil menu) (!!POO-JS-PHP) --> Raslen (don't forget it's gonna be on the admin page too, modify only if admin)
+### Front Admin:
 
-  -Page Commander(From Cart) --> ywarih elements fil cart - l form ma yodhher ken l user mahouch logged in  - Formulaire --> Raslen
+- LOGIN only (no register) → Seif  
+- CRUD system → Raslen & Seif  
+- Integrate Menu page + Modifications (price etc.) → Nour (HTML) & Raslen (PHP, hidden parts)  
 
-  -Page make_your_own_pizza; ## LAST THING !!!!! ## --> ???
+---
 
-  ## NOUR our Painter (css) !! ##
+### Back:
 
-  #PS: (RODDOU BELKOM TA3MLOU LIEN MIL USER LIL ADMIN PAGE !!!!)
-    #Sec: 
-        -ma lazemch ykoun famma lien binet l user int w admin int .
-  
-    ### front user DONE ###
+*(When front-end is done — HTML, CSS, JS)*
 
-** Front Admin:
-  
-  -LOGIN !!! (ma3andouch register !!!!!) --> Seif
-  
-  -CRUD sys . --> Raslen-Seif
-  
-  -integre Page Menu + Modifications(price...) --> Nour-Raslen (html-->nour / php(hidden parts -->raslen)
-  
-  ## front admin DONE ##
-  
-## front DONE ###
+- Roles system (admin-user)  
+- Database / Entity Mapping (Raslen please use prepared statements to prevent SQL Injection) -> Seif/Raslen 
+- Session Interface  
+- Forms Manager 
 
-** Back: PS (when front ends and i mean all html-css-JS)
-  
-  -ROLES !!!! (admin-user)
-  
-  -DB / intity Mapping (PS: Raslen billehi use preparte while u can for SQL INJECTION) (DB structure Seif-Raslen);
-  
-  -Session Interface
-  
-  -Forms Manager
-## BACK DONE ##
-  
+---
+
+# Status:
+
+- Front user: 
+    * By Seif:
+        - pages are ready for manipulations (templates/* and src/controller/*)
+        - navbar done
+        - footer partially done (still need a form for contact)
+
+- Front admin: 
+
+- Back:
+    * By Seif:
+        - DB is up 
+        - Created all entities
+
