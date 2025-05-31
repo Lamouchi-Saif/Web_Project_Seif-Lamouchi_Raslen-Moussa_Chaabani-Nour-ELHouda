@@ -17,6 +17,9 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: logout
+                target: log_reg_page
             
 
             # activate different ways to authenticate

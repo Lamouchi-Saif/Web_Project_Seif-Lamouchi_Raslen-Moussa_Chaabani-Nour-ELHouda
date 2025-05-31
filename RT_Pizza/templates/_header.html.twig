@@ -4,29 +4,28 @@
     <a href="{{ path('menu') }}">Menu</a>
     <a href="{{ path('make_your_own') }}">Make your Own Pizza</a>
     <a href="#contact">Contact</a>
-{% set fake_user = true %} {# Simulating a logged-in user for testing purposes #}
-{% set fake_roles = ['ROLE_ADMIN'] %}
 
-    {% if app.user or fake_user %}
+    {% if app.user %}
         <div class="user-menu">
             <span class="username">
-                👤 {{ app.user ? app.user.username : 'AdminTest' }}
-                {% if 'ROLE_ADMIN' in fake_roles %}
+                👤 {{ app.user.username }}
+                {% if is_granted('ROLE_ADMIN') %}
                     <span class="tag-admin">[Admin]</span>
                 {% endif %}
+
             </span>
 
             <div class="dropdown">
-                <a href="#">Logout</a>
+                <a href="{{ path('logout') }}">Logout</a>
 
-                {% if 'ROLE_ADMIN' in fake_roles %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('menu_add') }}">Add Product</a>
                     <a href="{{ path('ingredient_stock') }}">Check Ingredients</a>
                 {% endif %}
             </div>
         </div>
     {% else %}
-        <a href="{{ path('connexion') }}">Connexion</a>
+        <a href="{{ path('log_reg_page') }}">Connexion</a>
     {% endif %}
 </nav>
 
