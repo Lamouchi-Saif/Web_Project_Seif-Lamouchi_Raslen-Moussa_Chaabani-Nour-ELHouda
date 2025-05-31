@@ -22,7 +22,7 @@ class IngredientStockController extends AbstractController
         // Fetch all ingredients
         $ingredients = $ingredientRepository->findAll();
 
-        return $this->render('ingredients/index.html.twig', [
+        return $this->render('ingredient_stock/index.html.twig', [
             'ingredients' => $ingredients,
             'isAdmin' => $isAdmin, // Pass the admin status to the template
         ]);
