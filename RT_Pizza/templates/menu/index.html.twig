@@ -24,11 +24,6 @@
                 <h2 class="product-name">{{ product.name }}</h2>
                 <p class="product-description">{{ product.description }}</p>
                 <p class="product-price">${{ product.price }}</p>
-                     <button type="submit" class="add-to-cart-btn">➕ Add to Cart</button>
-                     <p>Debug URL: {{ path('cart_add', {'id': product.id}) }}</p>
-                <form action="{{ path('cart_add', {'id': product.id}) }}" method="post">
-                    <button type="submit" class="add-to-cart-btn">➕ Add to Cart</button>
-                </form>
 
             </article>
         {% else %}

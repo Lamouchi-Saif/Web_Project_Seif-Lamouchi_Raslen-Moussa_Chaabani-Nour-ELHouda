@@ -60,8 +60,7 @@ final class ConnexionController extends AbstractController
     #[Route('/logout', name: 'logout')]
     public function logout(): void
     {
-        // The logout route is handled by Symfony's security system, so this method can be empty.
-        // It will automatically log the user out when they access this route.
+        
     }
 }
 
