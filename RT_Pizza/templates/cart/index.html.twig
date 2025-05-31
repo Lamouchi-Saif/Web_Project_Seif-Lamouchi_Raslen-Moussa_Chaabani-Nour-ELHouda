@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cart{% endblock %}
+{% block body %}
+<h1>Your Cart</h1>
+
+{% if cart is empty %}
+    <p>Your cart is empty.</p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Pizza</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for id, item in cart %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }} €</td>
+                    <td>{{ item.product.price * item.quantity }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td><strong>{{ total }} €</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="{{ path('make_command') }}" method="post">
+        <button type="submit">✅ Make Command</button>
+    </form>
+{% endif %}
+{% endblock %}
