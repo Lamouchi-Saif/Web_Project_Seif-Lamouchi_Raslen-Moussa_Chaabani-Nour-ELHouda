@@ -22,7 +22,7 @@ final class ConnexionController extends AbstractController
         return $this->render('connexion/index.html.twig',[
         ]);
     }
-    
+
     #[Route('/register', name: 'register')]
     public function index(
         Request $request,
