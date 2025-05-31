@@ -20,7 +20,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $user = new User();
-        $user->setUsername('john_doe');
+        $user->setUsername('john_batata');
         $user->setEmail('john@example.com');
         $user->setPhone('123456789');
         $user->setAddress('123 Main St');

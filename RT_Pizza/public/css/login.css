@@ -4,16 +4,13 @@
       box-sizing: border-box;
     }
 
-    /* Ensure labels and inputs are vertically spaced */
     .container form label {
       display: block;
       margin-bottom: 6px;
-      /* adds space between label and input */
     }
 
     .container form input {
       margin-bottom: 16px;
-      /* adds space between input fields */
     }
 
     .container {
@@ -74,8 +71,15 @@
 
     #register-form {
       align-items: center;
+      max-width: 400px;
     }
-
+    #register-form label {
+      display: block;       /* labels take full line width */
+      margin-left: 0;       /* no indent */
+      text-align: left;     /* label text aligned left */
+      margin-bottom: 4px;
+      width: 100%;   /* spacing below label */
+    }
     form {
       display: none;
       flex-direction: column;

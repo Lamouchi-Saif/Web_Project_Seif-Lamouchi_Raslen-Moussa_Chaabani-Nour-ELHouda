@@ -16,10 +16,10 @@
         <li><code>src/Controller/{{ controller_name }}Controller.php</code></li>
         <li><code>templates/index</code></li>
     </ul>
-    <p>
-        You can change the content of this page by editing these files.
-        <br />
-        If you see this message, it means that your application is set up correctly.
-        <br />
+    {% for type, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="alert alert-{{ type }}">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}

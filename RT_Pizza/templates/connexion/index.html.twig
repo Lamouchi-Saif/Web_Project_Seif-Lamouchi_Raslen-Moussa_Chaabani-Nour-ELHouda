@@ -15,8 +15,18 @@
       <button id="register-tab">Register</button>
     </nav>
 
+    {% if error is defined and error %}
+      <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% for type, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="alert alert-{{ type }}">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
+
     {# Login Form (handled by Symfony Security) #}
-    <form id="login-form" class="active" method="POST" action="">
+    <form id="login-form" class="active" method="POST" action={{ path('login')}}>
       <input type="hidden" name="_csrf_token" value="">
 
       <label for="email">Email</label>
@@ -38,22 +48,44 @@
         placeholder="Enter your password"
       >
 
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
       <button type="submit" class="submit-btn">Login</button>
 
-      {% if error %}
-        <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-      {% endif %}
     </form>
 
     {# Register Form #}
-    <form id="register-form" method="POST">
-      {{ form_start(registrationForm, {'attr': {'class': 'my-registration-form'} }) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword.first) }}
-        {{ form_row(registrationForm.plainPassword.second) }}
-        <button type="submit" class="submit-btn">Register</button>
-      {{ form_end(registrationForm) }}
+    <form id="register-form" method="POST" action={{ path('register') }}>
+        <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            placeholder="Enter your username"
+            value="{{ last_email|default('') }}"
+          >
+
+        <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="Enter your email"
+            value="{{ last_email|default('') }}"
+          >
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Enter your password"
+          >
+
+      <button type="submit" class="submit-btn">Register</button>
     </form>
 
     <p class="footer-text">Made with ❤️ for pizza lovers</p>
