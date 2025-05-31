@@ -11,7 +11,6 @@
 <header>
     <h1>Our Delicious Pizza Menu</h1>
 </header>
-
 <main>
     <div class="products-container">
         {% for product in products %}
@@ -24,6 +23,7 @@
                 <h2 class="product-name">{{ product.name }}</h2>
                 <p class="product-description">{{ product.description }}</p>
                 <p class="product-price">${{ product.price }}</p>
+                <button class="add-to-cart-btn" onclick="addToCart('{{ product.name }}', '{{ product.price }}')">➕ Add to Cart</button>
 
             </article>
         {% else %}
@@ -31,6 +31,4 @@
         {% endfor %}
     </div>
 </main>
-
-<script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}

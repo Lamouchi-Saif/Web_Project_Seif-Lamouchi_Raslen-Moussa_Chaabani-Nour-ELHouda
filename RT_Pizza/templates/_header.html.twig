@@ -1,6 +1,11 @@
 {%block stylesheet %}
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}" />
 {% endblock %}
+{% block javascripts %}
+  <script src="{{ asset('js/cart.js') }}"></script>
+    <script src="{{ asset('js/userdropdown.js') }}"></script>
+{% endblock %}
+
 <header>
     <div class="logo" onclick="location.href='{{ path('index') }}'">RT Pizza</div>
     <nav>
@@ -8,11 +13,20 @@
         <a href="{{ path('make_your_own') }}">Make your Own Pizza</a>
         <a href="#contact">Contact</a>
 
-        {% set cart = app.session.get('cart', {}) %}
-            <a href="{{ path('cart') }}" class="cart-icon">
-                🛒 Cart ({{ cart|length }})
+        <div class="cart-container">
+            <a href="#" class="cart-icon" id="cart-icon">
+                Cart 🛒 <span id="cart-count" class="cart-count">0</span>
             </a>
 
+            <!-- Dropdown panel -->
+            <div class="cart-dropdown" id="cart-dropdown">
+                <h4>Your Cart</h4>
+                <div class="cart-items" id="cart-items">
+                <p>Your cart is empty.</p>
+                </div>
+                <button class="checkout-btn">Checkout</button>
+            </div>
+        </div>
 
         {% if app.user %}
             <div class="user-menu">
@@ -35,9 +49,3 @@
         {% endif %}
     </nav>
 </header>
-<script>
-function toggleDropdown() {
-    const dropdown = document.getElementById('user-dropdown');
-    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
-}
-</script>
