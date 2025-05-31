@@ -25,6 +25,9 @@ class Product
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageUrl = null;
+
     /**
      * @var Collection<int, Commande>
      */
@@ -83,6 +86,15 @@ class Product
 
         return $this;
     }
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+    public function setImageUrl(?string $imageUrl): static
+    {
+        $this->imageUrl = $imageUrl;
+        return $this;
+    }
 
     /**
      * @return Collection<int, Commande>
@@ -126,7 +138,7 @@ class Product
     {
         if (!$this->productIngredients->contains($productIngredient)) {
             $this->productIngredients->add($productIngredient);
-            $productIngredient->setManyToOne($this);
+            $productIngredient->setProduct($this);
         }
 
         return $this;
@@ -136,8 +148,8 @@ class Product
     {
         if ($this->productIngredients->removeElement($productIngredient)) {
             // set the owning side to null (unless already changed)
-            if ($productIngredient->getManyToOne() === $this) {
-                $productIngredient->setManyToOne(null);
+            if ($productIngredient->getProduct() === $this) {
+                $productIngredient->setProduct(null);
             }
         }
 

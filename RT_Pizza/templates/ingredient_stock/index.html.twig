@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ingredient Stock{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1>Ingredient Stock</h1>
+    <a href="{{ path('ingredient_add') }}" class="add-ingredient-button">Add New Ingredient</a>
+</header>
+
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ingredient in ingredients %}
+                <tr>
+                    <td>{{ ingredient.id }}</td>
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.ingredientStock.quantity }}</td>
+                    <td>{{ ingredient.ingredientStock.unit }}</td>
+                    <td>
+                        <a href="{{ path('ingredient_edit', { id: ingredient.id }) }}">Edit</a>
+                        <a href="{{ path('ingredient_delete', { id: ingredient.id }) }}">Delete</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">No ingredients found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+<script src="{{ asset('js/menu.js') }}"></script>
+{% endblock %}

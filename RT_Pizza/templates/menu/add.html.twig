@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block title %}Add Product{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/add.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <header>
+        <h1>Add a New Product</h1>
+    </header>
+
+    <main>
+ <h1>Add New Pizza</h1>
+    <form action="{{ path('menu_add') }}" method="post">
+        <label for="name">Pizza Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" name="imageUrl">
+
+        <button type="submit">Add Pizza</button>
+    </form>
+{% endblock %}
