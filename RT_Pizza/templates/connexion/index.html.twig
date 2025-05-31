@@ -30,7 +30,7 @@
     {% endfor %}
 
     {# Login Form (handled by Symfony Security) #}
-    <form id="login-form" class="active" method="POST" action={{ path('login')}}>
+    <form id="login-form" class="active" method="POST" action="{{ path('login') }}">
       <input type="hidden" name="_csrf_token" value="">
 
       <label for="email">Email</label>

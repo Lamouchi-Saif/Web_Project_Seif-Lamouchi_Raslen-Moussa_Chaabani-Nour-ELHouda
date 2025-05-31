@@ -16,13 +16,13 @@
 
         {% if app.user %}
             <div class="user-menu">
-                <span class="username">
+                <span class="username" onclick="toggleDropdown()">
                     👤 {{ app.user.username }}
                     {% if is_granted('ROLE_ADMIN') %}
                         <span class="tag-admin">[Admin]</span>
                     {% endif %}
                 </span>
-                <div class="dropdown">
+                <div class="dropdown" id="user-dropdown">
                     <a href="{{ path('logout') }}">Logout</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('menu_add') }}">Add Product</a>
@@ -35,3 +35,9 @@
         {% endif %}
     </nav>
 </header>
+<script>
+function toggleDropdown() {
+    const dropdown = document.getElementById('user-dropdown');
+    dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+}
+</script>
