@@ -25,6 +25,9 @@ class Product
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $price = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageUrl = null;
+
     /**
      * @var Collection<int, Commande>
      */
@@ -81,6 +84,15 @@ class Product
     {
         $this->price = $price;
 
+        return $this;
+    }
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+    public function setImageUrl(?string $imageUrl): static
+    {
+        $this->imageUrl = $imageUrl;
         return $this;
     }
 

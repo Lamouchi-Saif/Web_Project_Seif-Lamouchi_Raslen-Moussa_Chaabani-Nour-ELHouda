@@ -1,9 +1,34 @@
 <header>
     <div class="logo" onclick="location.href='{{ path('index') }}'">RT Pizza</div>
     <nav>
-        <a href="{{ path('menu') }}">Menu</a>
-        <a href="{{ path('make_your_own') }}">Make your Own Pizza</a>
-        <a href="#contact">Contact</a>
+    <a href="{{ path('menu') }}">Menu</a>
+    <a href="{{ path('make_your_own') }}">Make your Own Pizza</a>
+    <a href="#contact">Contact</a>
+{% set fake_user = true %} {# Simulating a logged-in user for testing purposes #}
+{% set fake_roles = ['ROLE_ADMIN'] %}
+
+    {% if app.user or fake_user %}
+        <div class="user-menu">
+            <span class="username">
+                👤 {{ app.user ? app.user.username : 'AdminTest' }}
+                {% if 'ROLE_ADMIN' in fake_roles %}
+                    <span class="tag-admin">[Admin]</span>
+                {% endif %}
+            </span>
+
+            <div class="dropdown">
+                <a href="#">Logout</a>
+
+                {% if 'ROLE_ADMIN' in fake_roles %}
+                    <a href="{{ path('menu_add') }}">Add Product</a>
+                    <a href="{{ path('ingredient_stock') }}">Check Ingredients</a>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
         <a href="{{ path('connexion') }}">Connexion</a>
-    </nav>
+    {% endif %}
+</nav>
+
+
 </header>

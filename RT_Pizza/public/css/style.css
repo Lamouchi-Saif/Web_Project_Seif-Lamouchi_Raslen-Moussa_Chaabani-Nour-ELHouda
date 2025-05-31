@@ -58,3 +58,33 @@ footer {
     padding-top: 2rem;
     border-top: 2px solid #d84315;
 }
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu .dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.user-menu:hover .dropdown {
+    display: block;
+}
+
+.user-menu .dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.tag-admin {
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+}
