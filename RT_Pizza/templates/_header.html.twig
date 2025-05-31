@@ -16,16 +16,16 @@
 
         {% if app.user %}
             <div class="user-menu">
-                <span class="username">
-                    👤 {{ app.user.username }}
+                <span class="username" id="user-toggle">
+                        👤{{ app.user.username }}
                     {% if is_granted('ROLE_ADMIN') %}
                         <span class="tag-admin">[Admin]</span>
                     {% endif %}
                 </span>
-                <div class="dropdown">
+                <div class="dropdown" id="user-dropdown">
                     <a href="{{ path('logout') }}">Logout</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('menu_add') }}">Add Product</a>
+                        <a href="{{ path('menu_add_page') }}">Add Product</a>
                         <a href="{{ path('ingredient_stock') }}">Check Ingredients</a>
                     {% endif %}
                 </div>
@@ -34,4 +34,33 @@
             <a href="{{ path('log_reg_page') }}">Connexion</a>
         {% endif %}
     </nav>
+{% block javascripts %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.getElementById('user-toggle');
+      const dropdown = document.getElementById('user-dropdown');
+
+      let isOpen = false;
+
+      toggle.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent document click from firing
+        isOpen = !isOpen;
+        dropdown.style.display = isOpen ? 'flex' : 'none';
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function () {
+        if (isOpen) {
+          dropdown.style.display = 'none';
+          isOpen = false;
+        }
+      });
+
+      // Prevent closing when clicking inside the dropdown
+      dropdown.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
+{% endblock %}
 </header>

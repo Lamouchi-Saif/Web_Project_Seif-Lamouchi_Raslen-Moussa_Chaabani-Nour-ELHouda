@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class MenuController extends AbstractController
 {
@@ -21,17 +26,52 @@ class MenuController extends AbstractController
         ]);
     }
 
-    #[Route('/menu/add', name: 'menu_add')]
-    public function add(): Response
+    #[Route('/menu/add_page', name: 'menu_add_page')]
+    public function add_page(Request $request, SluggerInterface $sluggerInterface): Response
     {
-        if($this->isGranted('ROLE_ADMIN')) {
-            // Logic to add a new product (form handling will be added later)
+        if($this->isGranted('ROLE_ADMIN')) {    
             return $this->render('menu/add.html.twig');
         }else{
             // If the user is not an admin, redirect to the homepage or show an error
             return $this->redirectToRoute('index');
         }
     }
+    #[Route('/add',name: 'menu_add')]
+    public function add(Request $request, SluggerInterface $sluggerInterface,EntityManagerInterface $entityManagerInterface): Response
+    {
+        if($this->isGranted('ROLE_ADMIN')){
+            $image = $request->files->get('image');
+            $name = $request->request->get('name');
+            $product = new Product();
+            $product->setName($name);
+            $description = $request->request->get('description');
+            $product->setDescription($description);
+            $price = $request->request->get('price');
+            $product->setPrice($price);
+            if($image){
+                $safeName = $sluggerInterface->slug($name);
+                $extension = $image->guessExtension();
+                $newName = $safeName . "." . $extension;
+                try{
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $newName
+                    );
+                    $product->setImageUrl('images/'.$newName);
+                }catch(FileException $e){
+                    $this->addFlash('error', 'couldn\'t upload the image.');
+                    return $this->redirectToRoute('menu_add_page');
+                }
+            }
+            $entityManagerInterface->persist($product);
+            $entityManagerInterface->flush();
+            $this->addFlash('success','Addition Successful!');
+            return $this->redirectToRoute('menu_add_page');
+        } else {
+            return $this->redirectToRoute('index');
+        }
+    }
+
 
     #[Route('/menu/edit/{id}', name: 'menu_edit')]
     public function edit(int $id): Response

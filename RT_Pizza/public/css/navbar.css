@@ -1,3 +1,4 @@
+/* --- Header --- */
 header {
     background: linear-gradient(90deg, #ff5722, #d84315);
     color: white;
@@ -17,13 +18,14 @@ header:hover {
     background: linear-gradient(90deg, #d84315, #ff7043);
 }
 
+/* --- Logo --- */
 .logo {
     font-size: 1.8rem;
     font-weight: 900;
     cursor: pointer;
     letter-spacing: 2px;
     user-select: none;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
 }
 
@@ -31,9 +33,11 @@ header:hover {
     transform: scale(1.05);
 }
 
+/* --- Navigation Links --- */
 nav {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 nav a {
@@ -47,7 +51,6 @@ nav a {
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Underline effect on hover */
 nav a::after {
     content: "";
     position: absolute;
@@ -69,50 +72,28 @@ nav a:hover::after {
     width: 100%;
 }
 
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem 2rem;
-    }
-    nav {
-        width: 100%;
-        justify-content: space-around;
-        margin-top: 0.75rem;
-    }
-    nav a {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-    }
-}
-/* --- Cart Link --- */
-.cart-link {
-    position: relative;
-    font-size: 1.3rem;
+/* --- Cart Icon --- */
+.cart-icon {
+    font-size: 1.1rem;
+    font-weight: bold;
     color: white;
+    background-color: #d84315;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
+    transition: background-color 0.3s ease;
 }
 
-.cart-count {
-    background-color: #ffccbc;
-    color: #d84315;
-    font-weight: bold;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 0.75rem;
-    margin-left: 4px;
-    line-height: 1;
+.cart-icon:hover {
+    background-color: #bf360c;
 }
 
 /* --- User Menu --- */
 .user-menu {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: relative;
     font-size: 1rem;
     color: white;
 }
@@ -123,8 +104,16 @@ nav a:hover::after {
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
 }
 
+.user-menu .username:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Admin Tag --- */
 .user-menu .tag-admin {
     background-color: #fff;
     color: #d84315;
@@ -132,47 +121,52 @@ nav a:hover::after {
     padding: 2px 6px;
     border-radius: 4px;
     margin-left: 4px;
+    font-weight: bold;
 }
 
 /* --- Dropdown Menu --- */
 .user-menu .dropdown {
-    display: flex;
+    display: none;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: white;
     border-radius: 6px;
-    margin-top: 0.3rem;
-    gap: 0.3rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-top: 0.5rem;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-in-out;
+    z-index: 1000;
 }
 
 .user-menu .dropdown a {
-    color: #ffccbc;
-    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
     text-decoration: none;
+    color: #d84315;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .user-menu .dropdown a:hover {
-    color: white;
-    text-decoration: underline;
+    background-color: #ffeae0;
+    color: #bf360c;
 }
 
-/* --- Make User Menu Inline with Nav --- */
-nav {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-/* Mobile Responsive Update */
-@media (max-width: 768px) {
-    .user-menu {
-        align-items: flex-start;
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
     }
-
-    .user-menu .dropdown {
-        align-items: flex-start;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
+
+/* --- Add-to-Cart Button --- */
 .add-to-cart-btn {
     background-color: #ff5722;
     border: none;
@@ -189,13 +183,110 @@ nav {
     background-color: #e64a19;
 }
 
-.cart-icon {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: white;
-    background-color: #d84315;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    text-decoration: none;
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 2rem;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 0.75rem;
+    }
+
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .user-menu {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .user-menu .dropdown {
+        position: relative;
+        top: auto;
+        left: auto;
+        box-shadow: none;
+        margin-top: 0.3rem;
+        width: 100%;
+    }
+}
+/* --- Cart Container --- */
+.cart-container {
+    position: relative;
 }
 
+/* --- Cart Dropdown --- */
+.cart-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-in-out;
+}
+.cart-container{
+    position: relative;
+}
+
+.cart-dropdown.show {
+    display: flex;
+}
+
+.cart-dropdown h4 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #d84315;
+}
+
+.cart-items p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.cart-items .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.cart-items .item .name {
+    font-weight: 600;
+    color: #333;
+}
+
+.cart-items .item .price {
+    color: #777;
+}
+
+/* --- Checkout Button --- */
+.checkout-btn {
+    margin-top: 1rem;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #e64a19;
+}
