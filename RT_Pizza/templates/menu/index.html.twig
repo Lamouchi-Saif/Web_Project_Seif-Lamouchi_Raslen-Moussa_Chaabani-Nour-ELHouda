@@ -19,7 +19,7 @@
         {% for product in products %}
             <article class="product-card">
                 {% if product.imageUrl %}
-                    <img src="/images/{{ product.imageUrl }}" alt="{{ product.name }} image" class="product-image">
+                    <img src="/{{ product.imageUrl }}" alt="{{ product.name }} image" class="product-image">
                 {% else %}
                     <div class="no-image">Image not available</div>
                 {% endif %}

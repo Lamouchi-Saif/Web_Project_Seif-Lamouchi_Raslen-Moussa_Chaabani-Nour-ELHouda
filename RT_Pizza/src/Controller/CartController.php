@@ -115,7 +115,7 @@ class CartController extends AbstractController
                 'productId' => $item->getProduct()->getId(),
                 'name' => $item->getProduct()->getName(),
                 'price' => $item->getProduct()->getPrice(),
-                'imageUrl' => '/images/'. $item->getProduct()->getImageUrl(),
+                'imageUrl' => '/'. $item->getProduct()->getImageUrl(),
                 'quantity' => $item->getQuantity(),
             ];
         }

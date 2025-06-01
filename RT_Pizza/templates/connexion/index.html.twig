@@ -81,13 +81,22 @@
             value="{{ last_email|default('') }}"
           >
 
-          <label for="password">Password</label>
+          <label for="password1">Password</label>
           <input
             type="password"
-            id="password"
-            name="password"
+            id="password1"
+            name="password1"
             required
             placeholder="Enter your password"
+          >
+
+          <label for="password2">Password</label>
+          <input
+            type="password"
+            id="password2"
+            name="password2"
+            required
+            placeholder="Re-Enter your password to confirm"
           >
 
       <button type="submit" class="submit-btn">Register</button>
@@ -102,6 +111,17 @@
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
 
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.has('registerError') && urlParams.get('registerError') !== '') {
+      const regError = urlParams.get('registerError');
+      if(regError===0){
+        loginTab.classList.remove("active");
+        registerTab.classList.add("active");
+        loginForm.classList.remove("active");
+        registerForm.classList.add("active");
+      }
+    }
     loginTab.addEventListener("click", () => {
       loginTab.classList.add("active");
       registerTab.classList.remove("active");

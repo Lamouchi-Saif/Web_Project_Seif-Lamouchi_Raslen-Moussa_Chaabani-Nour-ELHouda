@@ -2,11 +2,6 @@
 <link rel="stylesheet" href="{{ asset('css/navbar.css') }}" />
 {% endblock %}
 
-{% block javascripts %}
-<script src="{{ asset('js/cart.js') }}"></script>
-<script src="{{ asset('js/userdropdown.js') }}"></script>
-{% endblock %}
-
 <header>
   <div class="logo" onclick="location.href='{{ path('index') }}'">RT Pizza</div>
   <nav>
@@ -30,8 +25,6 @@
         <button type="submit" class="btn command-btn">Command</button>
         </form>
     </div>
-
-
         {% if app.user %}
             <div class="user-menu">
                 <span class="username" id="user-toggle">
@@ -53,6 +46,8 @@
         {% endif %}
     </nav>
 {% block javascripts %}
+<script src="{{ asset('js/cart.js') }}">
+</script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const toggle = document.getElementById('user-toggle');

@@ -28,11 +28,36 @@ final class ConnexionController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
         UserPasswordHasherInterface $hasher,
+        UserRepository $userRepository
     ): Response {
         $username = $request->request->get('username');
         $email = $request->request->get('email');
-        $pass = $request->request->get('password');
-
+        $pass = $request->request->get('password1');
+        $repPass = $request->request->get('password2');
+        $existingUsername = $userRepository->findOneBy(['username' => $username]);
+        $existingEmail = $userRepository->findOneBy(['email' => $email]);
+        $registerError = false;
+        if($existingUsername){
+            $registerError = true;
+            $this->addFlash('error','user with this username exists.');
+            return $this->redirectToRoute('log_reg_page',[
+                'registerError' => $registerError
+            ]);
+        }
+        if($existingEmail){
+            $registerError = true;
+            $this->addFlash('error','user with this email exists.');
+            return $this->redirectToRoute('log_reg_page',[
+                'registerError' => $registerError
+            ]);
+        }
+        if($pass!=$repPass){
+            $registerError = true;
+            $this->addFlash('error','password mismatch detected.');
+            return $this->redirectToRoute('log_reg_page',[
+                'registerError' => $registerError
+            ]);
+        }
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
@@ -44,7 +69,9 @@ final class ConnexionController extends AbstractController
         $em->persist($user);
         $em->flush();
         $this->addFlash('success','Account successfully created!');
-        return $this->render('connexion/index.html.twig');
+        return $this->render('connexion/index.html.twig',[
+            'registerError' => $registerError
+        ]);
     }
     #[Route('/login', name: 'login')]
     public function login(
