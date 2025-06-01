@@ -1,12 +1,14 @@
 /* Simple modern CSS for nav, layout, and footer */
 body {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;          /* Make sure it covers the entire viewport */
+    background-repeat: no-repeat;    /* Prevent repeating */
+    background-attachment: fixed;    /* Optional: parallax effect */
+    background-position: center;     /* Center the image */
+    font-family: 'Arial', sans-serif; /* Optional: readable text font */
+    color: white;                    /* Text color that contrasts well */
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff8f0;
-    color: #333;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+    padding: 0;
 }
 
 header {
