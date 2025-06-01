@@ -75,7 +75,10 @@
         - navbar done
         - footer partially done (still need a form for contact)
         -login (partially done we need the action = ???),register functional
-
+    * By Raslen:
+        - Login Authenticator (automatic comparison of email and hashed password to login) and Registry form.
+        - UI Adjustments, Security.yaml configured for login and logout mechanism
+        - Add Product form, upload picture feature for admin ; save the picture itself in public/images, save a directory to same image into the database to manipulate.
 - Front admin: 
 
 - Back:
@@ -83,3 +86,6 @@
         - DB is up 
         - Created all entities
 
+# Must Do (Raslen): 
+- Render the name of the Product entity unique.
+- Register - Repeat password field.
