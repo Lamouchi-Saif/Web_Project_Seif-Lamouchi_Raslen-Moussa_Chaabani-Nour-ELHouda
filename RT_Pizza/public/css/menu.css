@@ -1,43 +1,29 @@
-/* Navbar styles */
-header {
-    background: linear-gradient(90deg, #ff5722, #d84315);
-    color: white;
-    padding: 1rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(216, 67, 21, 0.6);
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background-color 0.3s ease;
-}
-
-header:hover {
-    background: linear-gradient(90deg, #d84315, #ff7043);
-}
-
-.admin-options {
-    display: flex;
-    gap: 1rem;
-}
-
-/* Main styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background-color: #fff8f0;
-    color: #333;
-}
-
-h1 {
+/* Menu Hero Styles */
+.menu-hero {
     text-align: center;
-    margin: 2rem 0;
+    padding: 3rem 1rem;
+    background: linear-gradient(90deg, #ff7043, #ff5722);
+    color: white;
+    box-shadow: 0 4px 15px rgba(216, 67, 21, 0.4);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
-/* Products container */
-.products-container {
+.menu-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.menu-hero .subtitle {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.95;
+}
+
+/* Products Container Styles */
+.menu-section .products-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
@@ -46,8 +32,8 @@ h1 {
     padding: 0 1rem;
 }
 
-/* Product card styles */
-.product-card {
+/* Product Card Styles */
+.menu-section .product-card {
     background: white;
     border-radius: 10px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -57,19 +43,19 @@ h1 {
     flex-direction: column;
 }
 
-.product-card:hover {
+.menu-section .product-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-.product-image {
+.menu-section .product-image {
     width: 100%;
     height: 180px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
 }
 
-.no-image {
+.menu-section .no-image {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,14 +65,14 @@ h1 {
     font-style: italic;
 }
 
-.product-name {
+.menu-section .product-name {
     margin: 1rem;
     font-size: 1.5rem;
     font-weight: 600;
     color: #de4313;
 }
 
-.product-description {
+.menu-section .product-description {
     margin: 0 1rem 1rem 1rem;
     flex-grow: 1;
     color: #555;
@@ -94,50 +80,15 @@ h1 {
     line-height: 1.4;
 }
 
-.product-price {
+.menu-section .product-price {
     margin: 0 1rem 1rem 1rem;
     font-size: 1.2rem;
     font-weight: 700;
     color: #222;
 }
 
-.ingredients-list {
-    list-style: none;
-    margin: 0 1rem 1rem 1rem;
-    padding-left: 1.2rem;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-.ingredients-list li::before {
-    content: "• ";
-    color: #de4313;
-    font-weight: bold;
-}
-
-/* Table styles for ingredients */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Add to Cart button styles */
-.add-to-cart-btn {
+/* Add to Cart Button Styles */
+.menu-section .add-to-cart-btn {
     background-color: #ff5722; /* bright orange */
     color: white;
     border: none;
@@ -152,7 +103,7 @@ tr:hover {
     box-shadow: 0 2px 8px rgba(255, 87, 34, 0.5);
 }
 
-.add-to-cart-btn:hover {
+.menu-section .add-to-cart-btn:hover {
     background-color: #d84315; /* darker orange */
     box-shadow: 0 4px 12px rgba(216, 67, 21, 0.7);
 }

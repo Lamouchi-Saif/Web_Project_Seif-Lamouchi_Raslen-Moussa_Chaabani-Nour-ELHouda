@@ -1,3 +1,5 @@
+/* --- Navbar.css --- */
+
 /* --- Header --- */
 header {
     background: linear-gradient(90deg, #ff5722, #d84315);
@@ -72,21 +74,71 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* --- Cart Icon --- */
-.cart-icon {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: white;
-    background-color: #d84315;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+/* Style for the cart toggle button */
+.cart-toggle {
+    background: none; /* Remove default button background */
+    border: none; /* Remove border */
+    color: #fff; /* Text color */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    padding: 0.5rem; /* Padding for better click area */
+    transition: color 0.3s ease; /* Transition for hover effect */
 }
 
-.cart-icon:hover {
-    background-color: #bf360c;
+.cart-toggle:hover {
+    color: #ffccbc; /* Change color on hover */
 }
+
+/* Style for the dropdown menu */
+.dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    right: 10px;
+    top: 60px; /* Adjust based on your header height */
+    z-index: 1000;
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    padding: 10px; /* Add padding for better spacing */
+}
+
+/* Style for cart items */
+.cart-item {
+    color: #333; /* Text color */
+}
+
+.cart-item-name {
+    font-weight: bold; /* Bold for product name */
+    color: #de4313; /* Vibrant color for product name */
+}
+
+.cart-item-price {
+    color: #555; /* Color for price */
+}
+
+/* Style for total */
+.cart-total {
+    font-weight: bold; /* Bold for total */
+    color: #de4313; /* Vibrant color for total */
+}
+
+/* Style for command button */
+.command-btn {
+    width: 100%;
+    background: #ff5722; /* Button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 0.6rem; /* Padding */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.command-btn:hover {
+    background: #d84315; /* Darker shade on hover */
+}
+
 
 /* --- User Menu --- */
 .user-menu {
@@ -98,23 +150,19 @@ nav a:hover::after {
     color: white;
 }
 
-.user-menu .username {
+.username {
     font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
     padding: 0.4rem 0.6rem;
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
 
-.user-menu .username:hover {
+.username:hover {
     background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* --- Admin Tag --- */
-.user-menu .tag-admin {
+.tag-admin {
     background-color: #fff;
     color: #d84315;
     font-size: 0.7rem;
@@ -124,8 +172,7 @@ nav a:hover::after {
     font-weight: bold;
 }
 
-/* --- Dropdown Menu --- */
-.user-menu .dropdown {
+.dropdown {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -136,8 +183,6 @@ nav a:hover::after {
     border-radius: 6px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     margin-top: 0.5rem;
-    overflow: hidden;
-    animation: fadeIn 0.2s ease-in-out;
     z-index: 1000;
 }
 
@@ -145,7 +190,7 @@ nav a:hover::after {
     display: flex;
 }
 
-.user-menu .dropdown a {
+.dropdown a {
     padding: 0.8rem 1rem;
     text-decoration: none;
     color: #d84315;
@@ -153,12 +198,11 @@ nav a:hover::after {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.user-menu .dropdown a:hover {
+.dropdown a:hover {
     background-color: #ffeae0;
     color: #bf360c;
 }
 
-/* --- Animations --- */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -170,24 +214,7 @@ nav a:hover::after {
     }
 }
 
-/* --- Add-to-Cart Button --- */
-.add-to-cart-btn {
-    background-color: #ff5722;
-    border: none;
-    padding: 0.5rem 1rem;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 0.5rem;
-    transition: background-color 0.3s ease;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #e64a19;
-}
-
-/* --- Responsive Design --- */
+/* --- Responsive --- */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -203,94 +230,15 @@ nav a:hover::after {
         margin-top: 0.75rem;
     }
 
-    nav a {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-    }
-
     .user-menu {
         align-items: flex-start;
         width: 100%;
     }
 
-    .user-menu .dropdown {
+    .dropdown {
         position: relative;
-        top: auto;
-        left: auto;
         box-shadow: none;
-        margin-top: 0.3rem;
         width: 100%;
+        margin-top: 0.3rem;
     }
-}
-/* --- Cart Container --- */
-.cart-container {
-    position: relative;
-}
-
-/* --- Cart Dropdown --- */
-.cart-dropdown {
-    position: absolute;
-    top: 120%;
-    right: 0;
-    width: 300px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    display: none;
-    flex-direction: column;
-    padding: 1rem;
-    z-index: 1000;
-    animation: fadeIn 0.2s ease-in-out;
-}
-.cart-container{
-    position: relative;
-}
-
-.cart-dropdown.show {
-    display: flex;
-}
-
-.cart-dropdown h4 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: #d84315;
-}
-
-.cart-items p {
-    color: #555;
-    font-size: 0.95rem;
-}
-
-.cart-items .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-}
-
-.cart-items .item .name {
-    font-weight: 600;
-    color: #333;
-}
-
-.cart-items .item .price {
-    color: #777;
-}
-
-/* --- Checkout Button --- */
-.checkout-btn {
-    margin-top: 1rem;
-    background-color: #ff5722;
-    color: white;
-    border: none;
-    padding: 0.6rem 1rem;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.checkout-btn:hover {
-    background-color: #e64a19;
 }

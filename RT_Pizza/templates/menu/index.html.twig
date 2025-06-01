@@ -3,27 +3,32 @@
 {% block title %}Menu{% endblock %}
 
 {% block stylesheets %}
+    {{parent()}}
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
 {% endblock %}
 
+
 {% block body %}
-    
-<header>
-    <h1>Our Delicious Pizza Menu</h1>
-</header>
-<main>
+<section class="menu-hero">
+    <h1>🍕 Our Delicious Pizza Menu 🍕</h1>
+    <p class="subtitle">Freshly baked, crafted with love, delivered to your table</p>
+</section>
+
+<main class="menu-section">
     <div class="products-container">
         {% for product in products %}
             <article class="product-card">
                 {% if product.imageUrl %}
-                    <img src="{{ product.imageUrl }}" alt="{{ product.name }} image" class="product-image">
+                    <img src="/images/{{ product.imageUrl }}" alt="{{ product.name }} image" class="product-image">
                 {% else %}
                     <div class="no-image">Image not available</div>
                 {% endif %}
                 <h2 class="product-name">{{ product.name }}</h2>
                 <p class="product-description">{{ product.description }}</p>
                 <p class="product-price">${{ product.price }}</p>
-                <button class="add-to-cart-btn" onclick="addToCart('{{ product.name }}', '{{ product.price }}')">➕ Add to Cart</button>
+                <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
+                    ➕ Add to Cart
+                </button>
 
             </article>
         {% else %}
