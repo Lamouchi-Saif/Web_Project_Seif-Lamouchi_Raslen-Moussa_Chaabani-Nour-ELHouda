@@ -95,3 +95,12 @@
 
 # Must DO (Saif):
   - add option delete or modify buttons in the products for admins !!!
+# Must Do (Raslen):
+  - check register form validators they are not working it accepts to register a user with uncomplete email and 3 digit password(if it's gonna take alot of time drop it and i will validate them with JS even though it's not very secure(solution : vulnerable))
+  - add input for repeating the password (indice: use RepeatedType::Class)
+  - check for xss on the upload image(in Add Product) for the admin (again if takes much time drop it we'll figure it out)
+  - then you can start on the make your own pizza or the index(presentation of our website) check above for more details
+  - or configure the contact us field
+## RASLEN !! VERY IMPORTANT PULL BEFORE COMMITING AND PLS IF YOU PUSH DON'T CHANGE ANY CSS OR JS OR TEMPLATES LIKE :
+##  _HEADER , BASE , MENU/INDEX , ENTITY/PRODUCT , ...
+## LAST PS : RUN MIGRATIONS TO HAVE CART FUNTIONALITIES
