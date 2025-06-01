@@ -13,6 +13,38 @@ header {
     transition: background-color 0.3s ease;
 }
 
+.alert {
+    margin: 1.2rem auto;
+    padding: 1rem 1.5rem;
+    width: fit-content;
+    max-width: 90%;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.alert-success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-left: 6px solid #3c763d;
+}
+
+.alert-error,
+.alert-danger {
+    background-color: #f2dede;
+    color: #a94442;
+    border-left: 6px solid #a94442;
+}
+
+.alert-info {
+    background-color: #d9edf7;
+    color: #31708f;
+    border-left: 6px solid #31708f;
+}
+
 header:hover {
     background: linear-gradient(90deg, #d84315, #ff7043);
 }

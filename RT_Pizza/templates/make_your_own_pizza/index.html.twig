@@ -8,18 +8,30 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="pizza-builder">
+    <div class="ingredients-list">
+        <h2>Choose Your Ingredients</h2>
+        <ul>
+            {% for ingredient in ingredients %}
+                <li>
+                    <label>
+                        <input type="checkbox" name="ingredients[]" value="{{ ingredient.id }}">
+                        {{ ingredient.name }} ({{ ingredient.price }}€)
+                    </label>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li><code>src/Controller/{{ controller_name }}Controller.php</code></li>
-        <li><code>templates/make_your_own_pizza</code></li>
-    </ul>
-    <p>
-        You can change the content of this page by editing these files.
-        <br />
-        If you see this message, it means that your application is set up correctly.
-        <br />
+    <div class="pizza-preview">
+        <h2>Your Pizza</h2>
+        <div class="pizza-image">
+            <!-- You can use JS to show added ingredients on pizza -->
+        </div>
+        <div class="summary">
+            <p><strong>Total:</strong> <span id="pizza-total">0.00€</span></p>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+    </div>
 </div>
 {% endblock %}

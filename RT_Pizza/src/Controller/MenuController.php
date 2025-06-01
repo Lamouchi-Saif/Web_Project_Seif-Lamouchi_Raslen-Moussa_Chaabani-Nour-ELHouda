@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
+
 
 class MenuController extends AbstractController
 {
@@ -42,27 +45,46 @@ class MenuController extends AbstractController
         if($this->isGranted('ROLE_ADMIN')){
             $image = $request->files->get('image');
             $name = $request->request->get('name');
+            //XSS PROTECTION ---
+            $mimeType = $image->getMimeType();
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+            if (!in_array($mimeType, $allowedMimeTypes)) {
+                $this->addFlash('error', 'Invalid image format.');
+                return $this->redirectToRoute('menu_add_page');
+            }
             $product = new Product();
             $product->setName($name);
             $description = $request->request->get('description');
             $product->setDescription($description);
             $price = $request->request->get('price');
             $product->setPrice($price);
-            if($image){
-                $safeName = $sluggerInterface->slug($name);
+            if ($image) {
+                //XSS PROTECTION IMAGE UPLOAD
+                $validator = Validation::createValidator();
+                $violations = $validator->validate(
+                    $image,
+                    new ImageConstraint([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+                    ])
+                );
+                if (count($violations) > 0) {
+                    $this->addFlash('error', 'Invalid image file.');
+                    return $this->redirectToRoute('menu_add_page');
+                }
                 $extension = $image->guessExtension();
-                $newName = $safeName . "." . $extension;
-                try{
+                $newName = uniqid('img_', true) . '.' . $extension;
+                try {
                     $image->move(
                         $this->getParameter('images_directory'),
                         $newName
                     );
-                    $product->setImageUrl('images/'.$newName);
-                }catch(FileException $e){
-                    $this->addFlash('error', 'couldn\'t upload the image.');
+                    $product->setImageUrl('images/' . $newName);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Could not upload the image.');
                     return $this->redirectToRoute('menu_add_page');
                 }
             }
+
             $entityManagerInterface->persist($product);
             $entityManagerInterface->flush();
             $this->addFlash('success','Addition Successful!');

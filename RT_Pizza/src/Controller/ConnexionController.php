@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Repository\UserRepository;
 use function Symfony\Component\Clock\now;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Email;
 
 final class ConnexionController extends AbstractController
 {
@@ -37,6 +39,18 @@ final class ConnexionController extends AbstractController
         $existingUsername = $userRepository->findOneBy(['username' => $username]);
         $existingEmail = $userRepository->findOneBy(['email' => $email]);
         $registerError = false;
+        $validator = Validation::createValidator();
+
+        $violations = $validator->validate($email, [
+            new Email(['message' => 'Please enter a valid email address.'])
+        ]);
+
+        if (count($violations) > 0) {
+            foreach ($violations as $violation) {
+                $this->addFlash('error', $violation->getMessage());
+            }
+            return $this->redirectToRoute('log_reg_page');
+        }
         if($existingUsername){
             $registerError = true;
             $this->addFlash('error','user with this username exists.');
