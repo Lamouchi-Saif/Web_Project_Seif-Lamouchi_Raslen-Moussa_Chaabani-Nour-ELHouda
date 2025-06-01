@@ -72,14 +72,26 @@
 - Front user: 
     * By Seif:
         - pages are ready for manipulations (templates/* and src/controller/*)
-        - navbar done
+        - navbar done ,added (features for the connexion field as if it was a user or admin + cart() field)
         - footer partially done (still need a form for contact)
-        -login (partially done we need the action = ???),register functional
+        - login (partially done we need the action = ???),register functional , nvm raslen Handeled these two
+        - menu page is up and well structured and beautifull
+        - Added Cart Functionality (dymanically(synced) adjusted with JS)(! problem we need to accept an anonymous user to add to the cart! !)
 
 - Front admin: 
+      * By Seif :
+          - It's the same as the user but with more functionalities (CRUD)()
+          - Add Product page (Raslens work) but configured its Controller so that it's only visible for admin (any ACCESS with a role Different than ROLE_ADMIN he gets redirected to index)
+          - Same for check_ingredients_stock only accessible by Admin
+          - Configured a drop down that has links to add product and check ingredients (same principle)
+
 
 - Back:
     * By Seif:
         - DB is up 
         - Created all entities
+        - added cartItem Entity
+        - added imageUrl field to product entity
 
+# Must DO (Saif):
+  - add option delete or modify buttons in the products for admins !!!
