@@ -16,16 +16,25 @@ use App\Form\ProductTypeForm;
 class MenuController extends AbstractController
 {
     #[Route('/menu', name: 'menu')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, Request $request): Response
     {
-        // Fetch all products
-        $products = $productRepository->findAll();
+        $query = $request->query->get('q');
 
+        if ($query) {
+            $products = $productRepository->createQueryBuilder('p')
+                ->where('LOWER(p.name) LIKE LOWER(:query) OR LOWER(p.description) LIKE LOWER(:query)')
+                ->setParameter('query', '%' . $query . '%')
+                ->getQuery()
+                ->getResult();
+        } else {
+            $products = $productRepository->findAll();
+        }
 
         return $this->render('menu/index.html.twig', [
             'products' => $products
         ]);
     }
+
 
     #[Route('/menu/add_page', name: 'menu_add_page')]
     public function add_page(Request $request, SluggerInterface $sluggerInterface): Response
