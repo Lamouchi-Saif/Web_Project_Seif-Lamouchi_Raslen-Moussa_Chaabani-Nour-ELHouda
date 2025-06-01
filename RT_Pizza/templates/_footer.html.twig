@@ -1,8 +1,79 @@
 <section id="contact">
     <h2>Contact Us</h2>
     <p>If you have any questions or feedback, feel free to reach out to us!</p>
-    <h1 style="color:red;">WE NEED TO ADD A MAIL FORM HERE !!!</h1>
+    <div class="container">
+    <div class="contact-info">
+        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+        <p><strong>Email:</strong> <a href="mailto:rtpizza901@gmail.com">rtpizza901@gmail.com</a></p>
+        <p><strong>Address:</strong> 676 Centre Urbain Nord BP, Tunis 1080</p>
+        <p><strong>Business Hours:</strong> Mon-Fri: 10:00 AM - 9:00 PM, Sat-Sun: 11:00 AM - 10:00 PM</p>
+    </div>
+
+    <div class="map-container" style="margin-top: 20px;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.8139940316987!2d10.1970209!3d36.8429605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd34c6d1e93bef%3A0x4153c4733f285343!2sNational%20Institute%20of%20Applied%20Science%20and%20Technology!5e1!3m2!1sen!2stn!4v1748803359469!5m2!1sen!2stn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    {{ form_start(globalContactForm, { 'action': path('contact_send'), 'method': 'POST' } ) }}
+        <div class="form-group">
+            {{ form_row(globalContactForm.name) }}
+            {{ form_row(globalContactForm.email) }}
+            {{ form_row(globalContactForm.message) }}
+        </div>
+        <button class="submit-button" type="submit">Send Message</button>
+    {{ form_end(globalContactForm) }}
+
+    <section id="contact-faq" style="margin-top: 40px;">
+        <h3>Frequently Asked Questions</h3>
+        <ul>
+            <li><strong>How long does delivery take?</strong> Usually 30-45 minutes depending on your location.</li>
+            <li><strong>Do you offer gluten-free options?</strong> Yes, we have gluten-free crust available on request.</li>
+            <li><strong>Can I customize my order?</strong> Absolutely! Contact us with your special requests.</li>
+        </ul>
+    </section>
+
+    <div class="social-links" style="margin-top: 20px;">
+        <a href="https://facebook.com/rtpizza" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a href="https://instagram.com/rtpizza" target="_blank" rel="noopener" aria-label="Instagram" style="margin-left: 15px;">
+            <i class="fab fa-instagram fa-2x"></i>
+        </a>
+        <a href="https://twitter.com/rtpizza" target="_blank" rel="noopener" aria-label="Twitter" style="margin-left: 15px;">
+            <i class="fab fa-twitter fa-2x"></i>
+        </a>
+    </div>
+    </div>
 </section>
+
+
+{% for message in app.flashes('success') %}
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Message Sent!',
+            text: '{{ message }}',
+            confirmButtonColor: '#d84315',
+            timer: 4000,
+            timerProgressBar: true
+        });
+
+    </script>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ message }}',
+            confirmButtonColor: '#d84315',
+            timer: 4000,
+            timerProgressBar: true
+        });
+    </script>
+{% endfor %}
+
+
 <footer>
     &copy; {{ "now"|date("Y") }} RT Pizza. All rights reserved.
 </footer>
