@@ -29,6 +29,12 @@
                 <button class="add-to-cart-btn" onclick="addToCart('{{ product.id }}')">
                     ➕ Add to Cart
                 </button>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="admin-actions">
+                        <a href="{{ path('menu_edit', { id: product.id }) }}" class="edit-btn">✏️ Edit</a>
+                        <a href="{{ path('menu_delete', { id: product.id }) }}" class="delete-btn">🗑️ Delete</a>
+                    </div>
+                {% endif %}
 
             </article>
         {% else %}

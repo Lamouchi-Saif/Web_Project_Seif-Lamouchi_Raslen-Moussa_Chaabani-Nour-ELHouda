@@ -107,3 +107,45 @@
     background-color: #d84315; /* darker orange */
     box-shadow: 0 4px 12px rgba(216, 67, 21, 0.7);
 }
+.menu-section .admin-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0 1rem 1rem 1rem;
+}
+
+.menu-section .admin-actions .edit-btn,
+.menu-section .admin-actions .delete-btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Edit button style */
+.menu-section .admin-actions .edit-btn {
+    background-color: #ffa726; /* amber/orange */
+    color: white;
+}
+
+.menu-section .admin-actions .edit-btn:hover {
+    background-color: #fb8c00; /* darker amber */
+    box-shadow: 0 4px 10px rgba(251, 140, 0, 0.4);
+}
+
+/* Delete button style */
+.menu-section .admin-actions .delete-btn {
+    background-color: #ef5350; /* red */
+    color: white;
+}
+
+.menu-section .admin-actions .delete-btn:hover {
+    background-color: #e53935; /* darker red */
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.4);
+}

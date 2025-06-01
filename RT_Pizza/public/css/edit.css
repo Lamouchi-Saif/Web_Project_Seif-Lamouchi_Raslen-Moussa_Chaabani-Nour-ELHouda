@@ -1,0 +1,77 @@
+.edit-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.edit-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ff5722;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff7043;
+    box-shadow: 0 0 0 3px rgba(255, 112, 67, 0.2);
+    outline: none;
+}
+
+.current-image {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.current-image img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.update-btn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #ff7043, #ff5722);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.update-btn:hover {
+    background: #e64a19;
+    transform: translateY(-2px);
+}

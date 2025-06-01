@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Form\ProductTypeForm;
 
 class MenuController extends AbstractController
 {
@@ -19,7 +20,7 @@ class MenuController extends AbstractController
     {
         // Fetch all products
         $products = $productRepository->findAll();
-        
+
 
         return $this->render('menu/index.html.twig', [
             'products' => $products
@@ -29,17 +30,17 @@ class MenuController extends AbstractController
     #[Route('/menu/add_page', name: 'menu_add_page')]
     public function add_page(Request $request, SluggerInterface $sluggerInterface): Response
     {
-        if($this->isGranted('ROLE_ADMIN')) {    
+        if ($this->isGranted('ROLE_ADMIN')) {
             return $this->render('menu/add.html.twig');
-        }else{
+        } else {
             // If the user is not an admin, redirect to the homepage or show an error
             return $this->redirectToRoute('index');
         }
     }
-    #[Route('/add',name: 'menu_add')]
-    public function add(Request $request, SluggerInterface $sluggerInterface,EntityManagerInterface $entityManagerInterface): Response
+    #[Route('/add', name: 'menu_add')]
+    public function add(Request $request, SluggerInterface $sluggerInterface, EntityManagerInterface $entityManagerInterface): Response
     {
-        if($this->isGranted('ROLE_ADMIN')){
+        if ($this->isGranted('ROLE_ADMIN')) {
             $image = $request->files->get('image');
             $name = $request->request->get('name');
             $product = new Product();
@@ -48,24 +49,24 @@ class MenuController extends AbstractController
             $product->setDescription($description);
             $price = $request->request->get('price');
             $product->setPrice($price);
-            if($image){
+            if ($image) {
                 $safeName = $sluggerInterface->slug($name);
                 $extension = $image->guessExtension();
                 $newName = $safeName . "." . $extension;
-                try{
+                try {
                     $image->move(
                         $this->getParameter('images_directory'),
                         $newName
                     );
-                    $product->setImageUrl('images/'.$newName);
-                }catch(FileException $e){
+                    $product->setImageUrl('images/' . $newName);
+                } catch (FileException $e) {
                     $this->addFlash('error', 'couldn\'t upload the image.');
                     return $this->redirectToRoute('menu_add_page');
                 }
             }
             $entityManagerInterface->persist($product);
             $entityManagerInterface->flush();
-            $this->addFlash('success','Addition Successful!');
+            $this->addFlash('success', 'Addition Successful!');
             return $this->redirectToRoute('menu_add_page');
         } else {
             return $this->redirectToRoute('index');
@@ -74,15 +75,77 @@ class MenuController extends AbstractController
 
 
     #[Route('/menu/edit/{id}', name: 'menu_edit')]
-    public function edit(int $id): Response
+    public function edit(
+        int $id,
+        SluggerInterface $sluggerInterface,
+        ProductRepository $productRepository,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('index');
+        }
+
+        $product = $productRepository->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        $form = $this->createForm(ProductTypeForm::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form['imageFile']->getData();
+
+            if ($imageFile) {
+                $oldImagePath = $product->getImageUrl();
+                if ($oldImagePath && file_exists($this->getParameter('kernel.project_dir') . '/public/' . $oldImagePath)) {
+                    unlink($this->getParameter('kernel.project_dir') . '/public/' . $oldImagePath);
+                }
+                $safeName = $sluggerInterface->slug($product->getName());
+                $extension = $imageFile->guessExtension();
+                $newName = $safeName . "." . $extension;
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newName
+                    );
+                    $product->setImageUrl('images/' . $newName);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'couldn\'t upload the image.');
+                    return $this->redirectToRoute('menu_add_page');
+                }
+            }
+
+            $em->flush(); // Persist changes
+            $this->addFlash('success', 'Product updated successfully!');
+
+            return $this->redirectToRoute('menu');
+        }
+
+        return $this->render('menu/edit.html.twig', [
+            'product' => $product,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/menu/delete/{id}', name: 'menu_delete')]
+    public function delete(int $id, ProductRepository $productRepository, EntityManagerInterface $entityManagerInterface): Response
     {
-        if($this->isGranted('ROLE_ADMIN')) {
-            // Logic to edit a product (form handling will be added later)
-            return $this->render('menu/edit.html.twig', [
-                'id' => $id
-            ]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $product = $productRepository->find($id);
+            if ($product) {
+                $entityManagerInterface->remove($product);
+                $entityManagerInterface->flush();
+                $this->addFlash('success', 'Product deleted successfully.');
+            } else {
+                $this->addFlash('error', 'Product not found.');
+            }
+            return $this->redirectToRoute('menu');
         } else {
-            // If the user is not an admin, redirect to the homepage or show an error
             return $this->redirectToRoute('index');
         }
     }
