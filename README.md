@@ -72,20 +72,41 @@
 - Front user: 
     * By Seif:
         - pages are ready for manipulations (templates/* and src/controller/*)
-        - navbar done
+        - navbar done ,added (features for the connexion field as if it was a user or admin + cart() field)
         - footer partially done (still need a form for contact)
-        -login (partially done we need the action = ???),register functional
+        - login (partially done we need the action = ???),register functional , nvm raslen Handeled these two
+        - menu page is up and well structured and beautifull
+        - Added Cart Functionality (dymanically(synced) adjusted with JS)(! problem we need to accept an anonymous user to add to the cart! !)
     * By Raslen:
         - Login Authenticator (automatic comparison of email and hashed password to login) and Registry form.
         - UI Adjustments, Security.yaml configured for login and logout mechanism
         - Add Product form, upload picture feature for admin ; save the picture itself in public/images, save a directory to same image into the database to manipulate.
 - Front admin: 
+      * By Seif :
+          - It's the same as the user but with more functionalities (CRUD)()
+          - Add Product page (Raslens work) but configured its Controller so that it's only visible for admin (any ACCESS with a role Different than ROLE_ADMIN he gets redirected to index)
+          - Same for check_ingredients_stock only accessible by Admin
+          - Configured a drop down that has links to add product and check ingredients (same principle)
+
 
 - Back:
     * By Seif:
         - DB is up 
         - Created all entities
+        - added cartItem Entity
+        - added imageUrl field to product entity
 
+# Must DO (Saif):
+  - add option delete or modify buttons in the products for admins !!!
+# Must Do (Raslen):
+  - check register form validators they are not working it accepts to register a user with uncomplete email and 3 digit password(if it's gonna take alot of time drop it and i will validate them with JS even though it's not very secure(solution : vulnerable))
+  - add input for repeating the password (indice: use RepeatedType::Class)
+  - check for xss on the upload image(in Add Product) for the admin (again if takes much time drop it we'll figure it out)
+  - then you can start on the make your own pizza or the index(presentation of our website) check above for more details
+  - or configure the contact us field
+## RASLEN !! VERY IMPORTANT PULL BEFORE COMMITING AND PLS IF YOU PUSH DON'T CHANGE ANY CSS OR JS OR TEMPLATES LIKE :
+##  _HEADER , BASE , MENU/INDEX , ENTITY/PRODUCT , ...
+## LAST PS : RUN MIGRATIONS TO HAVE CART FUNTIONALITIES
 # Must Do (Raslen): 
 - Render the name of the Product entity unique.
 - Register - Repeat password field.

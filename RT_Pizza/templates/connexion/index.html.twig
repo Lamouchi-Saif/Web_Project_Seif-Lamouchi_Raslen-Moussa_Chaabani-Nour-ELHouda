@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
+{{parent()}}
   <link rel="stylesheet" href="{{ asset('css/login.css') }}" />
 {% endblock %}
 
@@ -30,7 +31,7 @@
     {% endfor %}
 
     {# Login Form (handled by Symfony Security) #}
-    <form id="login-form" class="active" method="POST" action={{ path('login')}}>
+    <form id="login-form" class="active" method="POST" action="{{ path('login') }}">
       <input type="hidden" name="_csrf_token" value="">
 
       <label for="email">Email</label>
