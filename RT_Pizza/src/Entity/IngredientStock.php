@@ -14,14 +14,16 @@ class IngredientStock
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: false)]
     private ?string $quantity = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, nullable:false)]
     private ?string $unit = null;
 
-    #[ORM\OneToOne(inversedBy: 'ingredientStock', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: false)]
+    private ?string $price = null;
+
+    #[ORM\OneToOne(mappedBy: 'stock', targetEntity: Ingredient::class)]
     private ?Ingredient $ingredient = null;
 
 
@@ -68,6 +70,16 @@ class IngredientStock
             $ingredient->setIngredientStock($this);
         }
 
+        return $this;
+    }
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?string $price): static
+    {
+        $this->price = $price;
         return $this;
     }
 }

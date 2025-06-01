@@ -1,0 +1,139 @@
+body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff8f5;
+      margin: 2rem auto;
+      max-width: 1200px;
+      color: #3c3c3c;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 0 1rem;
+    }
+
+    /* Container for pizza */
+    .pizza-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      background: url('{{ asset("images/pizza_dough.png") }}') no-repeat center/contain;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(216, 67, 21, 0.6);
+      user-select: none;
+    }
+
+    /* Toppings images on pizza */
+    .ingredient {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      width: 80px;
+      height: 80px;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+    /* Sample positions for toppings */
+    .ingredient1 { top: 50px; left: 120px; }
+    .ingredient2 { top: 120px; left: 200px; }
+    .ingredient3 { top: 200px; left: 80px; }
+    .ingredient4 { top: 220px; left: 230px; }
+    .ingredient5 { top: 130px; left: 140px; }
+
+    /* Ingredients list styling */
+    .ingredients-list {
+      max-width: 350px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(216, 67, 21, 0.6);
+      padding: 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .ingredients-list h2 {
+      color: #d84315;
+      margin-bottom: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      font-size: 1.8rem;
+      user-select: none;
+      text-shadow: 0 2px 6px rgba(216, 67, 21, 0.6);
+    }
+
+    /* Each ingredient item */
+    .ingredient-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #3c3c3c;
+      user-select: none;
+    }
+    .ingredient-item span {
+      flex-grow: 1;
+    }
+
+    /* Add buttons styled like navbar add-to-cart */
+    button.add-to-cart-btn {
+      background-color: #ff5722;
+      border: none;
+      padding: 0.45rem 1rem;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(216, 67, 21, 0.6);
+    }
+    button.add-to-cart-btn:hover {
+      background-color: #d84315;
+    }
+
+    /* Price display */
+    #price {
+      font-weight: 900;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+      color: #d84315;
+      text-align: right;
+      user-select: none;
+    }
+
+    /* Finish order button styled like command-btn */
+    #finish-btn {
+      margin-top: 2rem;
+      width: 100%;
+      background: #ff5722;
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      font-weight: 900;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 6px 15px rgba(216, 67, 21, 0.8);
+      user-select: none;
+    }
+    #finish-btn:hover {
+      background: #d84315;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+      }
+      .pizza-container {
+        width: 320px;
+        height: 320px;
+      }
+      .ingredients-list {
+        width: 100%;
+        max-width: 400px;
+      }
+    }

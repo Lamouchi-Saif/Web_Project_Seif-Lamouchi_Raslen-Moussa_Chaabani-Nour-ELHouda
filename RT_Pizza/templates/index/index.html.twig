@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to Pizza Delight{% endblock %}
+{% block title %}Welcome to RT Pizza{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 {% endblock %}
 
@@ -12,7 +13,6 @@
         <div class="hero-content">
             <h1 class="hero-title">Savor Every Slice</h1>
             <p class="hero-subtitle">Freshly baked pizzas made with love and fire</p>
-            
             {% for type, messages in app.flashes %}
               {% for message in messages %}
                 <div class="alert alert-{{ type }}">{{ message }}</div>
@@ -24,5 +24,44 @@
         </div>
     </div>
 </div>
+<section class="menu-section">
+    <div class="products-container">
+        <article class="product-card">
+            <img src="{{ asset('images/discount.jpg') }}" alt="Limited Time Offer" class="product-image">
+            <h2 class="product-name">🔥 Limited Time Offer</h2>
+            <p class="product-description">
+                Get 2 large pizzas and a drink for only $19.99! Offer valid until Sunday. Don’t miss out!
+            </p>
+            <p class="product-price">$19.99</p>
+            <button class="add-to-cart-btn" onclick="window.location.href='{{ path('menu') }}'">
+                🍕 View Menu
+            </button>
+        </article>
+
+        <article class="product-card">
+            <img src="{{ asset('images/history.jpg') }}" alt="Our Story" class="product-image">
+            <h2 class="product-name">📜 Our Story</h2>
+            <p class="product-description">
+                Founded in 1998, RT Pizza started as a small family restaurant with a passion for wood-fired flavor. Today, we still bake every pizza with that same love and fire.
+            </p>
+            <p class="product-price">—</p>
+            <button class="add-to-cart-btn" onclick="window.location.href='{{ path('menu_add_page') }}'">
+                📖 Learn More
+            </button>
+        </article>
+
+        <article class="product-card">
+            <img src="{{ asset('images/chef.jpg') }}" alt="Meet the Chef" class="product-image">
+            <h2 class="product-name">👨‍🍳 Meet the Chef</h2>
+            <p class="product-description">
+                Our head chef, Marco Rossi, trained in Naples and brings authentic Italian flavor to every bite. Discover his signature creations!
+            </p>
+            <p class="product-price">—</p>
+            <button class="add-to-cart-btn" onclick="window.location.href='{{ path('menu') }}'">
+                🍽 Explore Pizzas
+            </button>
+        </article>
+    </div>
+</section>
 {% endblock %}
 

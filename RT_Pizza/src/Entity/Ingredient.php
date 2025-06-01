@@ -18,13 +18,17 @@ class Ingredient
     #[ORM\Column(length: 45)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 45)]
+    private ?string $type = null;
+
     /**
      * @var Collection<int, ProductIngredient>
      */
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: ProductIngredient::class)]
     private Collection $productIngredients;
 
-    #[ORM\OneToOne(mappedBy: 'ingredient', targetEntity: IngredientStock::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: IngredientStock::class, inversedBy: 'ingredient', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'stock_id', referencedColumnName: 'id', nullable: false)]
     private ?IngredientStock $ingredientStock = null;
 
     public function __construct()
@@ -46,6 +50,18 @@ class Ingredient
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
