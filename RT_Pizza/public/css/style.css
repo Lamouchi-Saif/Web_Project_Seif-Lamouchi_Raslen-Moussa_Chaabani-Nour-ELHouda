@@ -1,12 +1,12 @@
-/* Simple modern CSS for nav, layout, and footer */
+
 body {
     background-image: url('../images/bg.jpg');
-    background-size: cover;          /* Make sure it covers the entire viewport */
-    background-repeat: no-repeat;    /* Prevent repeating */
-    background-attachment: fixed;    /* Optional: parallax effect */
-    background-position: center;     /* Center the image */
-    font-family: 'Arial', sans-serif; /* Optional: readable text font */
-    color: white;                    /* Text color that contrasts well */
+    background-size: cover;          
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
+    background-position: center;     
+    font-family: 'Arial', sans-serif; 
+    color: white;                   
     margin: 0;
     padding: 0;
 }
