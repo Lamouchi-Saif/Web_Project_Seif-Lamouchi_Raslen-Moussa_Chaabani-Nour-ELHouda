@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on username change
         return $this;
     }
 
@@ -88,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on email change
         return $this;
     }
 
@@ -100,7 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(?string $phone): static
     {
         $this->phone = $phone;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on phone change
         return $this;
     }
 
@@ -112,7 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(?string $address): static
     {
         $this->address = $address;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on address change
         return $this;
     }
 
@@ -125,7 +125,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPasswordHash(string $passwordHash): static
     {
         $this->passwordHash = $passwordHash;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on password change
         return $this;
     }
 
@@ -137,7 +137,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsAdmin(bool $isAdmin): static
     {
         $this->isAdmin = $isAdmin;
-
+        $this->updatedAt = new \DateTimeImmutable(); // Update timestamp on admin status change
         return $this;
     }
 
@@ -264,5 +264,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return "User ID: {$this->id}, Username: {$this->username}, Email: {$this->email}, Phone: {$this->phone}, Address: {$this->address}, Is Admin: " . ($this->isAdmin ? 'Yes' : 'No') . ", Created At: {$this->createdAt->format('Y-m-d H:i:s')}, Updated At: {$this->updatedAt->format('Y-m-d H:i:s')}";
     }
 }

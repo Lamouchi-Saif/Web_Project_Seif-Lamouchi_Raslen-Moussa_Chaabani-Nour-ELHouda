@@ -115,7 +115,7 @@ class CartController extends AbstractController
                 'productId' => $item->getProduct()->getId(),
                 'name' => $item->getProduct()->getName(),
                 'price' => $item->getProduct()->getPrice(),
-                'imageUrl' => '/'. $item->getProduct()->getImageUrl(),
+                'imageUrl' => '/' . $item->getProduct()->getImageUrl(),
                 'quantity' => $item->getQuantity(),
             ];
         }
@@ -123,23 +123,23 @@ class CartController extends AbstractController
         return new JsonResponse($data);
     }
     #[IsGranted('ROLE_USER')]
-#[Route('/cart', name: 'cart_show', methods: ['GET'])]
-public function showCart(): Response
-{
-    $user = $this->getCurrentUser();
+    #[Route('/cart', name: 'cart_show', methods: ['GET'])]
+    public function showCart(): Response
+    {
+        $user = $this->getCurrentUser();
 
-    $cartItems = $this->cartItemRepository->findBy(['user' => $user]);
+        $cartItems = $this->cartItemRepository->findBy(['user' => $user]);
 
-    $total = 0;
-    foreach ($cartItems as $item) {
-        $total += $item->getProduct()->getPrice() * $item->getQuantity();
+        $total = 0;
+        foreach ($cartItems as $item) {
+            $total += $item->getProduct()->getPrice() * $item->getQuantity();
+        }
+
+        return $this->render('cart/show.html.twig', [
+            'cart_items' => $cartItems,
+            'cart_total' => $total,
+        ]);
     }
-
-    return $this->render('cart/show.html.twig', [
-        'cart_items' => $cartItems,
-        'cart_total' => $total,
-    ]);
-}
 
     private function getCurrentUser()
     {

@@ -1,0 +1,110 @@
+/* --- General body font and color --- */
+body {
+    font-family: Arial, sans-serif;
+    color: #fff8e1; /* Soft cream for text */
+    background-color: #2e2e2e; /* fallback background */
+    padding: 2rem;
+}
+
+/* --- Table Styles --- */
+.order-table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.6); /* dark transparent overlay */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.order-table-header {
+    background-color: #e65100; /* strong orange */
+    color: #fff8e1;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.order-table-header th {
+    padding: 1rem;
+    text-align: center;
+}
+
+.order-table-row td {
+    padding: 1rem;
+    text-align: center;
+    color: #fff8e1;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+.order-total-row {
+    background-color: #e65100;
+    color: #fff8e1;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.order-total-label {
+    padding: 1rem;
+    text-align: right;
+}
+
+.order-total-price {
+    padding: 1rem;
+}
+
+/* --- Form Styles --- */
+#information {
+    margin-top: 2rem;
+    background-color: rgba(0, 0, 0, 0.5); /* overlay behind form */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+.form-group1 {
+    margin-bottom: 1rem;
+}
+
+.form-group1 label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #fff8e1;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.form-group1 input[type="text"],
+.form-group1 input[type="email"],
+.form-group1 input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #2e4d2e; /* dark green */
+    color: #fff8e1;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+/* --- Submit Button --- */
+.submit-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #e65100; /* strong orange */
+    color: #fff8e1;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.submit-button:hover {
+    background-color: #bf360c; /* darker orange */
+}
+
+/* --- Empty Cart Message --- */
+.cart-empty-message {
+    color: #fff8e1;
+    font-weight: bold;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}

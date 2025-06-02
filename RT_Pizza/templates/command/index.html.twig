@@ -1,25 +1,116 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CommandController!{% endblock %}
+{% block title %}Your Command{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/command.css') }}" />
+{% endblock %}
+
+{% set totalPrice = 0 %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<section id="your-pizzas">
+    <h2>Your Pizzas</h2>
+    {% if cartItems is not empty %}
+    <table class="order-table">
+        <thead class="order-table-header">
+            <tr>
+                <th>#</th>
+                <th>Pizza</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cartItems %}
+            <tr class="order-table-row">
+                <td><img src="{{ item.product.imageUrl }}" alt="{{ item.product.name }}" width="100" height="100"></td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.product.price * item.quantity }}</td>
+                {% set totalPrice = totalPrice + (item.product.price * item.quantity) %}
+            </tr>
+            {% endfor %}
+            <tr class="order-total-row">
+                <td colspan="3" class="order-total-label">Total:</td>
+                <td class="order-total-price">${{ totalPrice }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% else %}
+    <p class="cart-empty-message">Your cart is empty.</p>
+    {% endif %}
+</section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<section id="information">
+    <h2>Delivery Information</h2>
+    <form id="delivery-form" method="post" action="{{ path('app_order_submit') }}">
 
-    This friendly message is coming from:
-    <ul>
-        <li><code>src/Controller/{{ controller_name }}Controller.php</code></li>
-        <li><code>templates/command</code></li>
-    </ul>
-    <p>
-        You can change the content of this page by editing these files.
-        <br />
-        If you see this message, it means that your application is set up correctly.
-        <br />
-</div>
+            {% if app.user.phone is null %}
+            <div class="form-group1">
+                <label>Phone</label>
+                <input type="text" name="phone" id="phone" required />
+            </div>
+            {% endif %}
+            {% if app.user.address is null %}
+            <div class="form-group1">
+                <label>Address</label>
+                <input type="text" name="address" id="address" required />
+            </div>
+            {% endif %}
+
+        <div class="form-group1">
+            <label>Payment Method</label><br>
+            <input type="radio" name="payment_method" value="cash" checked> Cash on Delivery<br>
+            <input type="radio" name="payment_method" value="card"> Credit Card (Not implemented yet)
+        </div>
+        <button type="submit" class="submit-button" onclick="submitOrder(event)">Order</button>
+    </form>
+</section>
+
+<script>
+    function submitOrder(event) {
+        event.preventDefault();
+        const form = document.getElementById('delivery-form');
+        const formData = new FormData(form);
+
+        fetch("{{ path('app_order_submit') }}", {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Order Confirmed!',
+                    text: 'Your pizza is on its way! It will take 35 minutes or more.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = '{{ path("index") }}';
+                });
+            } else {
+                return response.json().then(data => {
+                   Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.error
+                });
+            });
+                
+            }
+        })
+        .catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Network error or server unreachable.',
+            });
+        });
+    }
+</script>
 {% endblock %}

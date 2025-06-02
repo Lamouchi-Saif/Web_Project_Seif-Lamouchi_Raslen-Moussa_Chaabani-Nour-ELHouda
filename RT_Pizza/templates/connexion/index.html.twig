@@ -8,6 +8,7 @@
 {% block title %}Login & Register - RT Pizza{% endblock %}
 
 {% block body %}
+  <div id="auth-container">
   <div class="container">
     <div class="header">
       <span class="pizza-icon" aria-hidden="true">🍕</span>
@@ -60,7 +61,7 @@
     </form>
 
     {# Register Form #}
-    <form id="register-form" method="POST" action={{ path('register') }}>
+    <form id="register-form" method="POST" action="{{ path('register') }}">
         <label for="username">Username</label>
           <input
             type="text"
@@ -103,6 +104,7 @@
     </form>
 
     <p class="footer-text">Made with ❤️ for pizza lovers</p>
+  </div>
   </div>
 
   <script>

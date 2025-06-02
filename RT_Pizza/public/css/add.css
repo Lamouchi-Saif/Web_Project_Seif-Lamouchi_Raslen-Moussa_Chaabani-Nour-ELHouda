@@ -13,7 +13,7 @@ html, body {
   font-family: 'Poppins', sans-serif;
 }
 
-.alert {
+#add-page .alert {
     margin: 1.2rem auto;
     padding: 1rem 1.5rem;
     width: fit-content;
@@ -26,26 +26,26 @@ html, body {
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.alert-success {
+#add-page .alert-success {
     background-color: #dff0d8;
     color: #3c763d;
     border-left: 6px solid #3c763d;
 }
 
-.alert-error,
+#add-page .alert-error,
 .alert-danger {
     background-color: #f2dede;
     color: #a94442;
     border-left: 6px solid #a94442;
 }
 
-.alert-info {
+#add-page .alert-info {
     background-color: #d9edf7;
     color: #31708f;
     border-left: 6px solid #31708f;
 }
 
-.container {
+#add-page .container {
   background: #fff9f4;
   width: 400px;
   border-radius: 15px;
@@ -56,7 +56,7 @@ html, body {
   margin: auto;
 }
 
-#add-form {
+#add-page #add-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -64,7 +64,7 @@ html, body {
   max-width: 100%;
 }
 
-#add-form label {
+#add-page #add-form label {
   display: block;
   font-weight: 600;
   font-size: 0.9rem;
@@ -128,7 +128,7 @@ html, body {
     padding: 25px 25px 35px;
   }
 }
-.upload-btn {
+#add-page .upload-btn {
     display: inline-block;
     background-color: #ff5722;
     color: white;
@@ -140,10 +140,10 @@ html, body {
     text-align: center;
 }
 
-.upload-btn:hover {
+#add-page .upload-btn:hover {
     background-color: #e64a19;
 }
-.hero {
+#add-page .hero {
     text-align: center;
     padding: 3rem 1rem;
     background: linear-gradient(90deg, #ff7043, #ff5722);
@@ -152,14 +152,14 @@ html, body {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
-.hero h1 {
+#add-page .hero h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
     font-weight: 800;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
-.hero .subtitle {
+#add-page .hero .subtitle {
     font-size: 1.2rem;
     font-style: italic;
     opacity: 0.95;

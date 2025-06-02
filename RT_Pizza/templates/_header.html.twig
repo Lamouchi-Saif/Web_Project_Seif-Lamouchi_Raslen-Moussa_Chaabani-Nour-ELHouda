@@ -15,8 +15,8 @@
         ({{ cart_items|length }})
       </span>
     </button>
-
     <div id="cart-dropdown" class="dropdown-menu">
+      {% if app.user %}
         <div id="cart-items-list">
         <div class="text-muted">Chargement...</div>
         </div>
@@ -24,6 +24,9 @@
         <form action="{{ path('command') }}" method="GET">
         <button type="submit" class="btn command-btn">Command</button>
         </form>
+      {% else %}
+        <div class="text-muted">Please log in to view your cart.</div>
+      {% endif %}
     </div>
         {% if app.user %}
             <div class="user-menu">

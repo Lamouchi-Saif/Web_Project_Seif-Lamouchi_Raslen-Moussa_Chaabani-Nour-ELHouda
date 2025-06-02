@@ -18,6 +18,7 @@
             {{ form_row(globalContactForm.name) }}
             {{ form_row(globalContactForm.email) }}
             {{ form_row(globalContactForm.message) }}
+            {{ form_row(globalContactForm._token) }} 
         </div>
         <button class="submit-button" type="submit">Send Message</button>
     {{ form_end(globalContactForm) }}
