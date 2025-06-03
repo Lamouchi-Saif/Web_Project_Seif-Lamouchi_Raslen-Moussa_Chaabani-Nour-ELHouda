@@ -43,22 +43,18 @@
 
 - **NOUR** our painter (CSS) !!
 
-- **PS:** (Make sure not to create link from user to admin page!!)  
-  - **Security:** no direct link between user and admin pages
 
 ---
 
 ### Front Admin:
-
-- LOGIN only (no register) → Seif  
+ 
 - CRUD system → Raslen & Seif  
-- Integrate Menu page + Modifications (price etc.) → Nour (HTML) & Raslen (PHP, hidden parts)  
+- Integrate Menu page + Modifications (price etc.) → Seif
 
 ---
 
 ### Back:
 
-*(When front-end is done — HTML, CSS, JS)*
 
 - Roles system (admin-user)  
 - Database / Entity Mapping (Raslen please use prepared statements to prevent SQL Injection) -> Seif/Raslen 
@@ -77,6 +73,9 @@
         - login (partially done we need the action = ???),register functional , nvm raslen Handeled these two
         - menu page is up and well structured and beautifull
         - Added Cart Functionality (dymanically(synced) adjusted with JS)(! problem we need to accept an anonymous user to add to the cart! !)
+        - Contact us , is UP (couldn't configure mailer)!
+        - command page is up 
+        - vibrant styles
     * By Raslen:
         - Login Authenticator (automatic comparison of email and hashed password to login) and Registry form.
         - UI Adjustments, Security.yaml configured for login and logout mechanism
@@ -87,6 +86,8 @@
           - Add Product page (Raslens work) but configured its Controller so that it's only visible for admin (any ACCESS with a role Different than ROLE_ADMIN he gets redirected to index)
           - Same for check_ingredients_stock only accessible by Admin
           - Configured a drop down that has links to add product and check ingredients (same principle)
+          - Added edit,delete functionalities for the Admin
+          - Stock Ingredient is up with all Functionalities (add,edit,delete,sorting)
 
 
 - Back:
@@ -95,9 +96,9 @@
         - Created all entities
         - added cartItem Entity
         - added imageUrl field to product entity
+        - fixed relations between Ingredient and IngredientStock
 
-# Must DO (Saif):
-  - add option delete or modify buttons in the products for admins !!!
+
 # Must Do (Raslen):
   - check register form validators they are not working it accepts to register a user with uncomplete email and 3 digit password(if it's gonna take alot of time drop it and i will validate them with JS even though it's not very secure(solution : vulnerable))
   - add input for repeating the password (indice: use RepeatedType::Class)
