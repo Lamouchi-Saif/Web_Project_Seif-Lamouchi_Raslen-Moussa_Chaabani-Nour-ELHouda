@@ -23,7 +23,8 @@ class IngredientStock
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: false)]
     private ?string $price = null;
 
-    #[ORM\OneToOne(mappedBy: 'stock', targetEntity: Ingredient::class)]
+    #[ORM\OneToOne(targetEntity: Ingredient::class , inversedBy: 'ingredientStock')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Ingredient $ingredient = null;
 
 

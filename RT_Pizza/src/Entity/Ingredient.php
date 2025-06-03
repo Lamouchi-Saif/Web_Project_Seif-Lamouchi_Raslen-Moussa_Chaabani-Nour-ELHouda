@@ -6,6 +6,7 @@ use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 class Ingredient
@@ -19,6 +20,13 @@ class Ingredient
     private ?string $name = null;
 
     #[ORM\Column(length: 45)]
+    #[Assert\NotBlank(message: "Ingredient name cannot be blank")]
+    #[Assert\Length(
+        min: 2,
+        max: 45,
+        minMessage: "Ingredient name must be at least {{ limit }} characters long",
+        maxMessage: "Ingredient name cannot be longer than {{ limit }} characters"
+    )]
     private ?string $type = null;
 
     /**
@@ -27,8 +35,7 @@ class Ingredient
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: ProductIngredient::class)]
     private Collection $productIngredients;
 
-    #[ORM\OneToOne(targetEntity: IngredientStock::class, inversedBy: 'ingredient', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(name: 'stock_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\OneToOne(targetEntity: IngredientStock::class, mappedBy: 'ingredient', cascade: ['persist', 'remove'])]
     private ?IngredientStock $ingredientStock = null;
 
     public function __construct()

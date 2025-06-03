@@ -16,6 +16,34 @@ class IngredientRepository extends ServiceEntityRepository
         parent::__construct($registry, Ingredient::class);
     }
 
+    public function findAllWithStock()
+    {
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.ingredientStock', 's')
+            ->addSelect('s')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllSorted(string $sortBy, string $sortDirection)
+    {
+        $validSortFields = ['id', 'name', 'type', 'quantity', 'price'];
+        $sortBy = in_array($sortBy, $validSortFields) ? $sortBy : 'name';
+        $sortDirection = strtoupper($sortDirection) === 'DESC' ? 'DESC' : 'ASC';
+
+        $qb = $this->createQueryBuilder('i')
+            ->leftJoin('i.ingredientStock', 's')
+            ->addSelect('s');
+
+        // Special case for quantity and price which are in IngredientStock
+        if (in_array($sortBy, ['quantity', 'price'])) {
+            $qb->orderBy('s.' . $sortBy, $sortDirection);
+        } else {
+            $qb->orderBy('i.' . $sortBy, $sortDirection);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Ingredient[] Returns an array of Ingredient objects
     //     */

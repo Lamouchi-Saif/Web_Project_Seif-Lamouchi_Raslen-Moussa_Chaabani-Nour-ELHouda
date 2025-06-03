@@ -4,46 +4,217 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/menu.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/ingredient_stock.css') }}" />
 {% endblock %}
 
 {% block body %}
-<header>
-    <h1>Ingredient Stock</h1>
-    <a href="{{ path('ingredient_add') }}" class="add-ingredient-button">Add New Ingredient</a>
-</header>
+<div class="stock-container">
+    <header class="stock-header">
+        <h1>Ingredient Stock</h1>
+        <a href="{{ path('ingredient_add') }}" class="add-ingredient-button">
+            <i class="fas fa-plus"></i> Add New Ingredient
+        </a>
+    </header>
 
-<main>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Unit</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ingredient in ingredients %}
+    <main>
+        <table class="stock-table">
+            <thead>
                 <tr>
-                    <td>{{ ingredient.id }}</td>
-                    <td>{{ ingredient.name }}</td>
-                    <td>{{ ingredient.ingredientStock.quantity }}</td>
-                    <td>{{ ingredient.ingredientStock.unit }}</td>
-                    <td>
-                        <a href="{{ path('ingredient_edit', { id: ingredient.id }) }}">Edit</a>
-                        <a href="{{ path('ingredient_delete', { id: ingredient.id }) }}">Delete</a>
-                    </td>
+                    <th>
+                        <a href="{{ path('ingredient_stock', {
+                            'sort_by': 'id',
+                            'sort_direction': current_sort == 'id' and current_direction == 'asc' ? 'desc' : 'asc'
+                        }) }}">
+                            ID {% if current_sort == 'id' %}{{ current_direction == 'asc' ? '↑' : '↓' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ path('ingredient_stock', {
+                            'sort_by': 'name',
+                            'sort_direction': current_sort == 'name' and current_direction == 'asc' ? 'desc' : 'asc'
+                        }) }}">
+                            Name {% if current_sort == 'name' %}{{ current_direction == 'asc' ? '↑' : '↓' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ path('ingredient_stock', {
+                            'sort_by': 'type',
+                            'sort_direction': current_sort == 'type' and current_direction == 'asc' ? 'desc' : 'asc'
+                        }) }}">
+                            Type {% if current_sort == 'type' %}{{ current_direction == 'asc' ? '↑' : '↓' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a href="{{ path('ingredient_stock', {
+                            'sort_by': 'quantity',
+                            'sort_direction': current_sort == 'quantity' and current_direction == 'asc' ? 'desc' : 'asc'
+                        }) }}">
+                            Quantity {% if current_sort == 'quantity' %}{{ current_direction == 'asc' ? '↑' : '↓' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>Unit</th>
+                    <th>
+                        <a href="{{ path('ingredient_stock', {
+                            'sort_by': 'price',
+                            'sort_direction': current_sort == 'price' and current_direction == 'asc' ? 'desc' : 'asc'
+                        }) }}">
+                            Price/unit {% if current_sort == 'price' %}{{ current_direction == 'asc' ? '↑' : '↓' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>Actions</th>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">No ingredients found.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</main>
+            </thead>
+            <tbody>
+                {% for ingredient in ingredients %}
+                    <tr data-id="{{ ingredient.id }}" class="{% if app.request.query.get('editing') == ingredient.id %}editing{% endif %}">
+                        {% if app.request.query.get('editing') == ingredient.id %}
+                            {# EDIT MODE - FORM #}
+                            <td>{{ ingredient.id }}</td>
+                            <td colspan="6">
+                                <form class="edit-form" action="{{ path('ingredient_edit', {'id': ingredient.id}) }}" method="post">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" name="name" value="{{ ingredient.name }}" 
+                                                   class="form-control" required minlength="2" maxlength="45">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <select name="type" class="form-control">
+                                                <option value="cheese" {% if ingredient.type == 'cheese' %}selected{% endif %}>Cheese</option>
+                                                <option value="meat" {% if ingredient.type == 'meat' %}selected{% endif %}>Meat</option>
+                                                <option value="vegetable" {% if ingredient.type == 'vegetable' %}selected{% endif %}>Vegetable</option>
+                                                <option value="sauce" {% if ingredient.type == 'sauce' %}selected{% endif %}>Sauce</option>
+                                                <option value="herb" {% if ingredient.type == 'herb' %}selected{% endif %}>Herb</option>
+                                                <option value="specialty" {% if ingredient.type == 'specialty' %}selected{% endif %}>Specialty</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input type="number" name="quantity" 
+                                                   value="{{ ingredient.ingredientStock.quantity }}" 
+                                                   class="form-control" step="0.01" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Unit</label>
+                                            <select name="unit" class="form-control">
+                                                <option value="grams" {% if ingredient.ingredientStock.unit == 'grams' %}selected{% endif %}>Grams</option>
+                                                <option value="kg" {% if ingredient.ingredientStock.unit == 'kg' %}selected{% endif %}>Kilograms</option>
+                                                <option value="liters" {% if ingredient.ingredientStock.unit == 'liters' %}selected{% endif %}>Liters</option>
+                                                <option value="ml" {% if ingredient.ingredientStock.unit == 'ml' %}selected{% endif %}>Milliliters</option>
+                                                <option value="pieces" {% if ingredient.ingredientStock.unit == 'pieces' %}selected{% endif %}>Pieces</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="number" name="price" 
+                                                   value="{{ ingredient.ingredientStock.price }}" 
+                                                   class="form-control" step="0.01" required>
+                                        </div>
+                                        
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn-save">Save</button>
+                                            <a href="{{ path('ingredient_stock') }}" class="btn-cancel">Cancel</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        {% else %}
+                            {# VIEW MODE #}
+                            <td>{{ ingredient.id }}</td>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.type }}</td>
+                            <td class="{% if ingredient.ingredientStock.quantity < 10 %}critical-stock{% elseif ingredient.ingredientStock.quantity < 30 %}low-stock{% endif %}">
+                                {{ ingredient.ingredientStock.quantity }}
+                            </td>
+                            <td>{{ ingredient.ingredientStock.unit }}</td>
+                            <td class="price-cell">
+                                {% if ingredient.ingredientStock.price is defined and ingredient.ingredientStock.price is not null %}
+                                    ${{ "%0.2f"|format(ingredient.ingredientStock.price) }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ path('ingredient_stock', {'editing': ingredient.id}) }}" class="btn-edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <a href="{{ path('ingredient_delete', { id: ingredient.id }) }}" class="btn-delete" onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="empty-state">No ingredients found in stock</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</div>
+{% endblock %}
 
-<script src="{{ asset('js/menu.js') }}"></script>
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight critical stock rows
+            document.querySelectorAll('.critical-stock').forEach(el => {
+                el.closest('tr').classList.add('critical-row');
+            });
+
+            // Handle form submission with validation
+            document.querySelectorAll('.edit-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validate form
+                    const inputs = this.querySelectorAll('input[required], select[required]');
+                    let isValid = true;
+                    
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            input.classList.add('is-invalid');
+                            isValid = false;
+                        } else {
+                            input.classList.remove('is-invalid');
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        return;
+                    }
+                    
+                    // Submit form
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: new URLSearchParams(new FormData(this)),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
+                            alert('Error saving changes');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred');
+                    });
+                });
+            });
+        });
+    </script>
 {% endblock %}
